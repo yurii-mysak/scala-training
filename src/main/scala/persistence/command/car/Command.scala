@@ -1,16 +1,17 @@
-package com.github.scala_training
 package persistence.command.car
 
 import akka.actor.typed.ActorRef
-import com.github.scala_training.persistence.command.CommandResponse
-import com.github.scala_training.persistence.model.car.Car
+import persistence.command.CommandResponse
+import persistence.model.car.Car
 
 import java.util.UUID
+import java.time.Year
 
-enum Command {
-  case Create(make: String, model: String, year: Int, replyTo: ActorRef[CommandResponse[Car]])
-  case Update(id: UUID, make: String, model: String, year: Int, replyTo: ActorRef[CommandResponse[Car]])
-  case Get(id: UUID, replyTo: ActorRef[Option[CommandResponse[Car]]])
-  case Delete(id: UUID, replyTo: ActorRef[CommandResponse[Car]])
-  case GetAll(replyTo: ActorRef[Seq[CommandResponse[Car]]])
+sealed trait Command
+object Command {
+  case class Create(car: Car, replyTo: ActorRef[CommandResponse[Car]]) extends Command
+  case class Update(id: UUID, make: String, model: String, year: Year, replyTo: ActorRef[CommandResponse[Car]]) extends Command
+  case class Get(id: UUID, replyTo: ActorRef[CommandResponse[Car]]) extends Command
+  case class Delete(id: UUID, replyTo: ActorRef[CommandResponse[Car]]) extends Command
+  case class GetAll(replyTo: ActorRef[Seq[CommandResponse[Car]]]) extends Command
 }

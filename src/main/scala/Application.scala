@@ -1,32 +1,27 @@
-package com.github.scala_training
-
-import akka.actor.typed.{ActorRef, ActorSystem, DispatcherSelector, Props}
+import akka.actor.typed.{ActorSystem, Behavior, DispatcherSelector}
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.server.Directives.*
+import akka.http.scaladsl.server.Directives._
 import http.controller.{Car, Maintenance}
-import com.github.scala_training.persistence.model.car.{Car => CarModel}
-
 import akka.actor.typed.scaladsl.Behaviors
 import akka.util.Timeout
+import persistence.model.car.CarManager
 
-import scala.concurrent.duration.*
-import com.github.scala_training.persistence.command.car.Command
-import com.github.scala_training.persistence.repository.CarRepository
+import scala.concurrent.duration._
+import persistence.repository.CarRepository
 
-import java.util.UUID
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success}
 
 object Application {
-  @main def app(args: String*): Unit = {
+  def main(args: Array[String]): Unit = {
     // Create Actor system
-    given system: ActorSystem[?] = ActorSystem(Behaviors.empty, "CarMine")
-    given ExecutionContextExecutor = system.dispatchers.lookup(DispatcherSelector.fromConfig("akka.dispatchers.http-dispatcher"))
-    given timeout: Timeout = 3.seconds
+    implicit val system: ActorSystem[?] = ActorSystem(Behaviors.empty, "CarMine")
+    implicit val ec: ExecutionContextExecutor = system.dispatchers.lookup(DispatcherSelector.fromConfig("akka.dispatchers.http-dispatcher"))
+    implicit val timeout: Timeout = 3.seconds
+    // todo: somehow should be a behaviour and passed differently?
+    val carManager = system.systemActorOf(CarManager(), "car-manager")
 
-    // Create CarRepository instance
-    val carActor: ActorRef[Command] = system.systemActorOf(CarModel(UUID.randomUUID()), "carActor")
-    val carRepository = new CarRepository(carActor)
+    val carRepository = new CarRepository(carManager)
 
     // Combine routes
     val routes = concat(

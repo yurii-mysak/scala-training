@@ -1,20 +1,19 @@
-package com.github.scala_training
 package persistence.model.maintenance
 
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.EventSourcedBehavior
-import com.github.scala_training.domain.enums.{MaintenanceStatus, MaintenanceType}
-import com.github.scala_training.persistence.command.CommandResponse
-import com.github.scala_training.persistence.command.maintenance.Command
-import com.github.scala_training.persistence.event.maintenance.Event
-import com.github.scala_training.persistence.model.State
+import domain.adt.{MaintenanceStatus, MaintenanceType}
+import persistence.command.CommandResponse
+import persistence.command.maintenance.Command
+import persistence.event.maintenance.Event
+import persistence.model.State
 
 import java.time.LocalDateTime
 import java.util.UUID
 
-final case class Maintenance(
+case class Maintenance(
                               id: UUID,
                               carId: UUID,
                               description: String,
@@ -43,7 +42,7 @@ object Maintenance {
                              command: Command,
                              context: akka.actor.typed.scaladsl.ActorContext[Command]
                            ): akka.persistence.typed.scaladsl.Effect[Event, State[Maintenance]] = {
-    import Command.*
+    import Command._
 
     command match {
       case Schedule(carId, description, maintenanceType, scheduledDate, replyTo) =>
@@ -52,7 +51,7 @@ object Maintenance {
             .thenRun(_ => replyTo ! CommandResponse.Failure("Maintenance already exists"))
         else {
           val maintenance = Maintenance(
-            id = context.self.path.name.split("-").last.asInstanceOf[UUID],
+            id = UUID.randomUUID(),
             carId = carId,
             description = description,
             maintenanceType = maintenanceType,
@@ -71,7 +70,7 @@ object Maintenance {
   }
 
   private def handleEvent(state: State[Maintenance], event: Event): State[Maintenance] = {
-    import Event.*
+    import Event._
 
     event match {
       case Scheduled(maintenance) => State(Some(maintenance))
