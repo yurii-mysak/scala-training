@@ -11,7 +11,7 @@ case class GetCarByIdResponse(id: UUID, make: String, model: String, year: Year)
 object GetCarByIdResponse {
   implicit def toGetCarByIdResponse(response: CommandResponse[Car]): GetCarByIdResponse = {
     response match {
-      case CommandResponse.Success(Some(car)) =>
+      case CommandResponse.Success(Some(car: Car)) =>
         GetCarByIdResponse(car.id, car.make, car.model, car.year)
       case CommandResponse.Success(None) =>
         throw new IllegalStateException(s"Car was not found")

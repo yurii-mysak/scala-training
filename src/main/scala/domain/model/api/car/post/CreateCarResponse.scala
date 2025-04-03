@@ -10,7 +10,7 @@ case class CreateCarResponse(id: UUID)
 object CreateCarResponse {
   implicit def toCreateCarResponse(response: CommandResponse[Car]): CreateCarResponse = {
     response match {
-      case CommandResponse.Success(Some(car)) =>
+      case CommandResponse.Success(Some(car: Car)) =>
         CreateCarResponse(car.id)
       case CommandResponse.Success(None) =>
         throw new IllegalStateException("Car creation succeeded but no car was returned")

@@ -39,7 +39,6 @@ lazy val root = (project in file("."))
       "com.typesafe.akka" %% "akka-persistence-typed" % akkaVersion,
       "com.typesafe.akka" %% "akka-persistence-query" % akkaVersion,
       "com.typesafe.akka" %% "akka-serialization-jackson" % akkaVersion,
-      "com.lightbend.akka" %% "akka-persistence-jdbc" % "5.5.0",
 
       // testing (only Akka testkit needs cross-version)
       "com.typesafe.akka" %% "akka-testkit" % akkaVersion,

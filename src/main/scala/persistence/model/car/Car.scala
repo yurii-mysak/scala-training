@@ -1,17 +1,17 @@
 package persistence.model.car
 
-import persistence.command.car.Command
-import persistence.event.car.Event
 import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.Behaviors
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.{EventSourcedBehavior, RetentionCriteria}
+import akka.serialization.jackson.JsonSerializable
 import persistence.command.CommandResponse
+import persistence.command.car.Command
+import persistence.event.car.Event
 import persistence.model.State
 
-import java.time.LocalDateTime
+import java.time.{LocalDateTime, Year}
 import java.util.UUID
-import java.time.Year
 
 case class Car(
                 id: UUID,
@@ -20,11 +20,11 @@ case class Car(
                 year: Year,
                 createdAt: LocalDateTime,
                 updatedAt: Option[LocalDateTime] = None
-              )
+              ) extends JsonSerializable
 
 object Car {
   def apply(id: UUID): Behavior[Command] = {
-    Behaviors.setup { context =>
+    Behaviors.setup { _ =>
       EventSourcedBehavior(
         persistenceId = PersistenceId.ofUniqueId(s"car-$id"),
         emptyState = State(None),

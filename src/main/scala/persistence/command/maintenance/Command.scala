@@ -9,10 +9,15 @@ import java.util.UUID
 import java.time.LocalDateTime
 
 sealed trait Command
+
 object Command {
-  case class Schedule(carId: UUID, description: String, maintenanceType: MaintenanceType, scheduledDate: LocalDateTime, replyTo: ActorRef[CommandResponse[Maintenance]]) extends Command
+  case class Create(maintenance: Maintenance, replyTo: ActorRef[CommandResponse[Maintenance]]) extends Command
+
+  case class Schedule(maintenance: UUID, replyTo: ActorRef[CommandResponse[Maintenance]]) extends Command
+
   case class UpdateStatus(id: UUID, status: MaintenanceStatus, replyTo: ActorRef[CommandResponse[Maintenance]]) extends Command
-  case class Reschedule(id: UUID, scheduledDate: LocalDateTime, replyTo: ActorRef[CommandResponse[Maintenance]]) extends Command
+
   case class Get(id: UUID, replyTo: ActorRef[CommandResponse[Maintenance]]) extends Command
-  case class Cancel(id: UUID, replyTo: ActorRef[CommandResponse[Maintenance]]) extends Command
+
+  case class GetAll(replyTo: ActorRef[CommandResponse[Map[UUID, Maintenance]]]) extends Command
 }

@@ -4,31 +4,85 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import de.heikoseeberger.akkahttpcirce.FailFastCirceSupport
-import domain.adt.MaintenanceStatus
-import domain.model.api.maintenance.{CreateMaintenanceRequest, CreateMaintenanceResponse}
+import domain.adt.{MaintenanceStatus, MaintenanceType}
+import domain.model.api.maintenance.get.{GetMaintenanceByIdResponse, GetMaintenancesResponse}
+import domain.model.api.maintenance.post.{CreateMaintenanceRequest, CreateMaintenanceResponse}
 
-import scala.concurrent.{ExecutionContext, Future}
+import java.time.LocalDateTime
+import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success}
+import cats.syntax.traverse._
+import persistence.repository.MaintenanceRepository
+
 import java.util.UUID
 
 object Maintenance extends FailFastCirceSupport {
+
   import io.circe.generic.auto._
 
-  def routes(implicit ec: ExecutionContext): Route = {
-    path("maintenance") {
-      post {
-        entity(as[CreateMaintenanceRequest]) { request =>
-          val responseFuture = Future {
-            val id = UUID.randomUUID()
-            CreateMaintenanceResponse(id, MaintenanceStatus.Created)
-          }
+  def routes(maintenanceRepository: MaintenanceRepository)(implicit ec: ExecutionContext): Route = {
+    concat(
+      pathPrefix("maintenance") {
+        concat(
+          pathEnd {
+            post {
+              entity(as[CreateMaintenanceRequest]) { maintenanceInfo =>
+                val id = UUID.randomUUID()
+                val currentDate = LocalDateTime.now();
+                val validatedTypes = maintenanceInfo.maintenanceTypes.traverse(maintenanceType =>
+                  MaintenanceType.fromUUID(maintenanceType).toRight(s"Invalid maintenance type: $maintenanceType")
+                )
+                // todo: check car exists
 
-          onComplete(responseFuture) {
-            case Success(response) => complete(response)
-            case Failure(ex) => complete(StatusCodes.InternalServerError, s"An error occurred: ${ex.getMessage}")
+                validatedTypes match {
+                  case Right(types) =>
+                    val maintenance = new persistence.model.maintenance.Maintenance(
+                      id, maintenanceInfo.carId, maintenanceInfo.description, types,
+                      maintenanceInfo.scheduledDate, MaintenanceStatus.Created,
+                      currentDate, Some(currentDate)
+                    )
+
+                    onComplete(maintenanceRepository.create(maintenance)) {
+                      case Success(value) => complete(StatusCodes.Created, value: CreateMaintenanceResponse)
+                      case Failure(ex) => complete(StatusCodes.InternalServerError, s"An error occurred while creating a maintenance: ${ex.getMessage}")
+                    }
+                  case Left(error) =>
+                    complete(StatusCodes.BadRequest, error)
+                }
+              }
+            }
+          },
+          concat(
+            path(JavaUUID) { id =>
+              get {
+                onComplete(maintenanceRepository.getById(id)) {
+                  case Success(car) => complete(StatusCodes.OK, car: GetMaintenanceByIdResponse)
+                  case Failure(ex) => complete(StatusCodes.InternalServerError, s"Error: ${ex.getMessage}")
+                }
+              }
+            },
+            path(JavaUUID / "schedule") { id =>
+              put {
+                onComplete(maintenanceRepository.schedule(id)) {
+                  case Success(maintenance) => complete(StatusCodes.OK, maintenance: GetMaintenanceByIdResponse)
+                  case Failure(ex) => complete(StatusCodes.InternalServerError, s"Error scheduling maintenance: ${ex.getMessage}")
+                }
+              }
+            }
+          )
+        )
+      },
+      // todo: add filtering
+      pathPrefix("maintenances") {
+        pathEnd {
+          get {
+            onComplete(maintenanceRepository.getAll) {
+              case Success(cars) => complete(StatusCodes.OK, cars: GetMaintenancesResponse)
+              case Failure(ex) => complete(StatusCodes.InternalServerError, s"Error: ${ex.getMessage}")
+            }
           }
         }
       }
-    }
+    )
   }
 }

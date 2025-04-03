@@ -1,14 +1,14 @@
-import akka.actor.typed.{ActorSystem, Behavior, DispatcherSelector}
+import akka.actor.typed.scaladsl.Behaviors
+import akka.actor.typed.{ActorSystem, DispatcherSelector}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
-import http.controller.{Car, Maintenance}
-import akka.actor.typed.scaladsl.Behaviors
 import akka.util.Timeout
+import http.controller.{Car, Maintenance}
 import persistence.model.car.CarManager
+import persistence.model.maintenance.MaintenanceManager
+import persistence.repository.{CarRepository, MaintenanceRepository}
 
 import scala.concurrent.duration._
-import persistence.repository.CarRepository
-
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success}
 
@@ -18,17 +18,18 @@ object Application {
     implicit val system: ActorSystem[?] = ActorSystem(Behaviors.empty, "CarMine")
     implicit val ec: ExecutionContextExecutor = system.dispatchers.lookup(DispatcherSelector.fromConfig("akka.dispatchers.http-dispatcher"))
     implicit val timeout: Timeout = 3.seconds
-    // todo: somehow should be a behaviour and passed differently?
-    val carManager = system.systemActorOf(CarManager(), "car-manager")
 
+    val carManager = system.systemActorOf(CarManager(), "car-manager")
+    val maintenanceManager = system.systemActorOf(MaintenanceManager(), "maintenance-manager")
     val carRepository = new CarRepository(carManager)
+    val maintenanceRepository = new MaintenanceRepository(maintenanceManager)
 
     // Combine routes
     val routes = concat(
       pathPrefix("api") {
         concat(
           Car.routes(carRepository),
-          Maintenance.routes
+          Maintenance.routes(maintenanceRepository)
         )
       }
     )
