@@ -45,7 +45,7 @@ lazy val akka_impl = (project in file("akka_impl"))
   .dependsOn(core)
   .settings(
     name                := "akka_impl",
-    Compile / mainClass := Some("com.training.akka_impl.Application"),
+    Compile / mainClass := Some("com.scala_training.akka_impl.Application"),
     resolvers += "Akka library repository".at("https://repo.akka.io/maven"),
     libraryDependencies ++= Seq(
       "org.typelevel"     %% "cats-effect"                % catsEffectVersion,
@@ -66,7 +66,7 @@ lazy val akka_impl = (project in file("akka_impl"))
 lazy val cats_impl = (project in file("cats_impl"))
   .dependsOn(core)
   .settings(
-    Compile / mainClass := Some("com.training.cats_impl.Application"),
+    Compile / mainClass := Some("com.scala_training.cats_impl.Application"),
     name                := "cats_impl",
     scalacOptions ++= Seq(
       "-feature",
@@ -77,6 +77,8 @@ lazy val cats_impl = (project in file("cats_impl"))
     ),
     libraryDependencies ++= Seq(
       "org.typelevel"         %% "cats-effect"         % catsEffectVersion withSources () withJavadoc (),
+      "org.typelevel"         %% "log4cats-slf4j"      % log4catsVersion,
+      "ch.qos.logback"         % "logback-classic"     % "1.4.14",
       "org.http4s"            %% "http4s-ember-server" % http4sVersion,
       "org.http4s"            %% "http4s-dsl"          % http4sVersion,
       "com.github.jwt-scala"  %% "jwt-core"            % jwtScalaVersion,
