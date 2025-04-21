@@ -5,6 +5,12 @@
         </encoder>
     </appender>
 
+    <!-- Set logging levels for specific packages -->
+    <logger name="com.scala_training.cats" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <!-- Set default logging level -->
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>

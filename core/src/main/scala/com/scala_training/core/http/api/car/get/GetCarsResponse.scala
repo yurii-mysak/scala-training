@@ -15,6 +15,8 @@ object GetCarsResponse {
         GetCarsResponse(cars.map { case (id, car) =>
           id -> GetCarByIdResponse[A](car.id, car.make, car.model, car.year)
         })
+      case CommandResponse.Success(None)                           =>
+        throw new IllegalStateException("No cars found")
       case CommandResponse.Failure(reason)                         =>
         throw new IllegalStateException(reason)
     }

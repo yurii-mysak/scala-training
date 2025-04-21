@@ -6,6 +6,7 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 import java.time.Year
+import com.scala_training.core.http.codec.YearCodec._
 
 class YearCodecSpec extends AnyFlatSpec with Matchers {
 

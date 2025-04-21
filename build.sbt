@@ -33,11 +33,12 @@ lazy val core = (project in file("core"))
       "io.circe"          %% "circe-generic"              % circeVersion,
       "io.circe"          %% "circe-parser"               % circeVersion,
       "io.circe"          %% "circe-generic-extras"       % circeVersion,
-      "org.scalatest"     %% "scalatest"                  % scalaTestVersion % "test",
       "com.typesafe.akka" %% "akka-serialization-jackson" % akkaVersion,
       // todo: not ideal, since we use cats and akka in core
       "org.tpolecat"      %% "doobie-core"                % doobieVersion,
-      "org.tpolecat"      %% "doobie-postgres"            % doobieVersion
+      "org.tpolecat"      %% "doobie-postgres"            % doobieVersion,
+      "org.scalatest"     %% "scalatest"                  % scalaTestVersion % "test",
+      "org.scalacheck"    %% "scalacheck"                 % "1.14.1"         % "test"
     )
   )
 
@@ -76,19 +77,21 @@ lazy val cats_impl = (project in file("cats_impl"))
       "-language:higherKinds"
     ),
     libraryDependencies ++= Seq(
-      "org.typelevel"         %% "cats-effect"         % catsEffectVersion withSources () withJavadoc (),
-      "org.typelevel"         %% "log4cats-slf4j"      % log4catsVersion,
-      "ch.qos.logback"         % "logback-classic"     % "1.4.14",
-      "org.http4s"            %% "http4s-ember-server" % http4sVersion,
-      "org.http4s"            %% "http4s-dsl"          % http4sVersion,
-      "com.github.jwt-scala"  %% "jwt-core"            % jwtScalaVersion,
-      "org.http4s"            %% "http4s-circe"        % http4sVersion,
-      "io.circe"              %% "circe-fs2"           % circeVersion,
-      "org.tpolecat"          %% "doobie-core"         % doobieVersion,
-      "org.tpolecat"          %% "doobie-hikari"       % doobieVersion,
-      "org.tpolecat"          %% "doobie-postgres"     % doobieVersion,
-      "org.postgresql"         % "postgresql"          % "42.7.2", // postgres driver
-      "com.github.pureconfig" %% "pureconfig"          % "0.17.6",
-      "org.flywaydb"           % "flyway-core"         % "9.22.3"
+      "org.typelevel"         %% "cats-effect"                              % catsEffectVersion withSources () withJavadoc (),
+      "org.typelevel"         %% "log4cats-slf4j"                           % log4catsVersion,
+      "ch.qos.logback"         % "logback-classic"                          % "1.4.14",
+      "org.http4s"            %% "http4s-ember-server"                      % http4sVersion,
+      "org.http4s"            %% "http4s-dsl"                               % http4sVersion,
+      "com.github.jwt-scala"  %% "jwt-core"                                 % jwtScalaVersion,
+      "org.http4s"            %% "http4s-circe"                             % http4sVersion,
+      "io.circe"              %% "circe-fs2"                                % circeVersion,
+      "org.tpolecat"          %% "doobie-core"                              % doobieVersion,
+      "org.tpolecat"          %% "doobie-hikari"                            % doobieVersion,
+      "org.tpolecat"          %% "doobie-postgres"                          % doobieVersion,
+      "org.postgresql"         % "postgresql"                               % "42.7.2", // postgres driver
+      "com.github.pureconfig" %% "pureconfig"                               % "0.17.6",
+      "org.flywaydb"           % "flyway-core"                              % "9.22.3",
+      "org.scalatestplus"     %% "scalacheck-1-18"                          % "3.2.19.0" % "test",
+      "com.codecommit"        %% "cats-effect-testing-scalatest-scalacheck" % "0.5.4" % "test"
     )
   )

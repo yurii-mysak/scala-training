@@ -26,6 +26,9 @@ object GetMaintenancesResponse {
         )
       })
 
+    case CommandResponse.Success(None) =>
+      throw new IllegalStateException("No maintenances found")
+
     case CommandResponse.Failure(reason) =>
       throw new IllegalStateException(reason)
   }

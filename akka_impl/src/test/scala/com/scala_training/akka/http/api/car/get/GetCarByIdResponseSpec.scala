@@ -1,8 +1,10 @@
 package com.scala_training.akka.http.api.car.get
 
+import com.scala_training.akka.persistence.model.car.Car
+import com.scala_training.core.http.api.car.get.GetCarByIdResponse
+import com.scala_training.core.persistence.command.CommandResponse
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import persistence.model.car.Car
 
 import java.time.{LocalDateTime, Year}
 import java.util.UUID

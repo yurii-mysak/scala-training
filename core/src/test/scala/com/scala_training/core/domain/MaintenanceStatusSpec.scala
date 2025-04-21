@@ -1,4 +1,4 @@
-package com.scala_training.core.domain.tests
+package com.scala_training.core.domain
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
