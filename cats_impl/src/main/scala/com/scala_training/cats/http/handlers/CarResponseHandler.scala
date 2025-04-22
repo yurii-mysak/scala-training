@@ -1,7 +1,7 @@
 package com.scala_training.cats.http.handlers
 
-import cats.effect.Sync
-import cats.implicits._
+import cats.effect.Concurrent
+import cats.implicits.*
 import com.scala_training.core.domain.model.CarCore
 import com.scala_training.core.http.api.car.get.{GetCarByIdResponse, GetCarsResponse}
 import com.scala_training.core.http.api.car.post.CreateCarResponse
@@ -14,17 +14,15 @@ import com.scala_training.core.persistence.command.CommandResponse
 
 import java.util.UUID
 
-class CarResponseHandler[F[_]: Sync: Logger] extends Http4sDsl[F] {
-  import io.circe.generic.auto._
+class CarResponseHandler[F[_]: {Concurrent, Logger}] extends Http4sDsl[F] {
+  import io.circe.generic.auto.*
 
-  implicit def createCarRespEncoder[A <: CarCore]: EntityEncoder[F, CreateCarResponse[A]] =
-    jsonEncoderOf[F, CreateCarResponse[A]]
+  given createCarRespEncoder[A <: CarCore]: EntityEncoder[F, CreateCarResponse[A]] = jsonEncoderOf[CreateCarResponse[A]]
 
-  implicit def getCarByIdRespEncoder[A <: CarCore]: EntityEncoder[F, GetCarByIdResponse[A]] =
-    jsonEncoderOf[F, GetCarByIdResponse[A]]
+  given getCarByIdRespEncoder[A <: CarCore]: EntityEncoder[F, GetCarByIdResponse[A]] =
+    jsonEncoderOf[GetCarByIdResponse[A]]
 
-  implicit def getCarsRespEncoder[A <: CarCore]: EntityEncoder[F, GetCarsResponse[A]] =
-    jsonEncoderOf[F, GetCarsResponse[A]]
+  given getCarsRespEncoder[A <: CarCore]: EntityEncoder[F, GetCarsResponse[A]] = jsonEncoderOf[GetCarsResponse[A]]
 
   def handleCreateResponse[A <: CarCore](result: Either[Throwable, CommandResponse[A]]): F[Response[F]] = result match {
     case Right(response) =>

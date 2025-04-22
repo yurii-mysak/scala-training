@@ -1,6 +1,6 @@
 package com.scala_training.cats.application
 
-import cats.effect.Sync
+import cats.effect.Concurrent
 import com.scala_training.cats.persistence.model.Maintenance
 import com.scala_training.cats.persistence.repository.MaintenanceRepositoryAPI
 import com.scala_training.core.persistence.command.CommandResponse
@@ -8,7 +8,7 @@ import com.scala_training.core.persistence.command.CommandResponse
 import java.time.LocalDateTime
 import java.util.UUID
 
-class MaintenanceService[F[_]: Sync](repository: MaintenanceRepositoryAPI[F]) {
+class MaintenanceService[F[_]: Concurrent](repository: MaintenanceRepositoryAPI[F]) {
 
   def createMaintenance(maintenance: Maintenance): F[CommandResponse[Maintenance]] = repository.create(maintenance)
 

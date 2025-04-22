@@ -1,29 +1,28 @@
 package com.scala_training.cats.http.routes
 
-import cats.effect.Sync
-import cats.implicits._
+import cats.effect.Concurrent
+import cats.implicits.*
 import com.scala_training.cats.application.MaintenanceService
 import com.scala_training.cats.http.handlers
 import com.scala_training.cats.persistence.model.Maintenance
 import com.scala_training.core.domain.adt.{MaintenanceStatus, MaintenanceType}
 import com.scala_training.core.http.api.maintenance.post.CreateMaintenanceRequest
-import org.http4s._
-import org.http4s.circe._
+import org.http4s.*
+import org.http4s.circe.*
 import org.http4s.dsl.Http4sDsl
 import org.typelevel.log4cats.Logger
 
 import java.time.LocalDateTime
 import java.util.UUID
 
-class MaintenanceRoutes[F[_]: Sync: Logger](
+class MaintenanceRoutes[F[_]: {Concurrent, Logger}](
   maintenanceService: MaintenanceService[F],
   errorHandler: handlers.HttpErrorHandler[F],
   responseHandler: handlers.MaintenanceResponseHandler[F]
 ) extends Http4sDsl[F] {
-  import io.circe.generic.auto._
+  import io.circe.generic.auto.*
 
-  implicit def createMaintenanceReqDecoder: EntityDecoder[F, CreateMaintenanceRequest] =
-    jsonOf[F, CreateMaintenanceRequest]
+  given createMaintenanceReqDecoder: EntityDecoder[F, CreateMaintenanceRequest] = jsonOf[F, CreateMaintenanceRequest]
 
   val routes: HttpRoutes[F] = HttpRoutes.of[F] {
     case req @ POST -> Root / "api" / "maintenance" =>
@@ -60,7 +59,7 @@ class MaintenanceRoutes[F[_]: Sync: Logger](
 
   // todo: what it does?
   private def validateMaintenanceTypes(types: List[UUID]): F[List[MaintenanceType]] =
-    types.traverse(uuid => Sync[F].pure(MaintenanceType.fromUUID(uuid)))
+    types.traverse(uuid => Concurrent[F].pure(MaintenanceType.fromUUID(uuid)))
 
   private def createMaintenance(req: CreateMaintenanceRequest, types: List[MaintenanceType]): Maintenance = {
     val now = LocalDateTime.now()

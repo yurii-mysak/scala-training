@@ -1,7 +1,7 @@
 package com.scala_training.cats.http.handlers
 
-import cats.effect.Sync
-import cats.implicits._
+import cats.effect.{Concurrent, Sync}
+import cats.implicits.*
 import com.scala_training.core.domain.model.MaintenanceCore
 import com.scala_training.core.http.api.maintenance.get.{GetMaintenanceByIdResponse, GetMaintenancesResponse}
 import com.scala_training.core.http.api.maintenance.post.CreateMaintenanceResponse
@@ -14,17 +14,17 @@ import com.scala_training.core.persistence.command.CommandResponse
 
 import java.util.UUID
 
-class MaintenanceResponseHandler[F[_]: Sync: Logger] extends Http4sDsl[F] {
-  import io.circe.generic.auto._
+class MaintenanceResponseHandler[F[_]: {Concurrent, Logger}] extends Http4sDsl[F] {
+  import io.circe.generic.auto.*
 
-  implicit def createMaintenanceRespEncoder[A <: MaintenanceCore]: EntityEncoder[F, CreateMaintenanceResponse[A]] =
-    jsonEncoderOf[F, CreateMaintenanceResponse[A]]
+  given createMaintenanceRespEncoder[A <: MaintenanceCore]: EntityEncoder[F, CreateMaintenanceResponse[A]] =
+    jsonEncoderOf[CreateMaintenanceResponse[A]]
 
-  implicit def getMaintenanceByIdRespEncoder[A <: MaintenanceCore]: EntityEncoder[F, GetMaintenanceByIdResponse[A]] =
-    jsonEncoderOf[F, GetMaintenanceByIdResponse[A]]
+  given getMaintenanceByIdRespEncoder[A <: MaintenanceCore]: EntityEncoder[F, GetMaintenanceByIdResponse[A]] =
+    jsonEncoderOf[GetMaintenanceByIdResponse[A]]
 
-  implicit def getMaintenancesRespEncoder[A <: MaintenanceCore]: EntityEncoder[F, GetMaintenancesResponse[A]] =
-    jsonEncoderOf[F, GetMaintenancesResponse[A]]
+  given getMaintenancesRespEncoder[A <: MaintenanceCore]: EntityEncoder[F, GetMaintenancesResponse[A]] =
+    jsonEncoderOf[GetMaintenancesResponse[A]]
 
   def handleCreateResponse[A <: MaintenanceCore](result: Either[Throwable, CommandResponse[A]]): F[Response[F]] =
     result match {

@@ -7,11 +7,11 @@ import org.http4s.Response
 import org.http4s.circe.CirceEntityCodec.circeEntityEncoder
 import org.http4s.dsl.Http4sDsl
 import org.typelevel.log4cats.Logger
-import cats.effect._
-import cats.syntax.all._
+import cats.effect.*
+import cats.syntax.all.*
 
-class HttpErrorHandler[F[_]: Sync: Logger] extends Http4sDsl[F] {
-  import AppError._
+class HttpErrorHandler[F[_]: Concurrent: Logger] extends Http4sDsl[F] {
+  import AppError.*
 
   def handleError(message: String)(error: Throwable): F[Response[F]] = for {
     _        <- Logger[F].error(s"Error occurred: $message: ${error.getMessage}")

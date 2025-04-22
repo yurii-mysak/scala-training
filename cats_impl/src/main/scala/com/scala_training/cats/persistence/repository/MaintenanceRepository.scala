@@ -1,16 +1,15 @@
 package com.scala_training.cats.persistence.repository
 
-import cats.effect.Sync
-import cats.implicits._
+import cats.effect.Concurrent
+import cats.implicits.*
 import com.scala_training.cats.persistence.model.Maintenance
-import com.scala_training.cats.persistence.model.Maintenance._
 import com.scala_training.core.domain.adt.MaintenanceStatus
 import com.scala_training.core.persistence.command.CommandResponse
 import doobie.util.transactor.Transactor
-import doobie.implicits._
-import com.scala_training.core.domain.adt.MaintenanceStatus._
-import doobie.postgres.implicits._
-import org.typelevel.log4cats.Logger
+import doobie.implicits.*
+import com.scala_training.core.domain.adt.MaintenanceStatus.*
+import doobie.postgres.implicits.*
+import org.typelevel.log4cats.{Logger, LoggerFactory}
 
 import java.util.UUID
 import java.time.LocalDateTime
@@ -22,7 +21,8 @@ trait MaintenanceRepositoryAPI[F[_]] {
   def schedule(id: UUID, scheduledDate: LocalDateTime): F[CommandResponse[Maintenance]]
 }
 
-class MaintenanceRepository[F[_]: Sync: Logger](xa: Transactor[F]) extends MaintenanceRepositoryAPI[F] {
+class MaintenanceRepository[F[_]: {Concurrent, LoggerFactory}](xa: Transactor[F]) extends MaintenanceRepositoryAPI[F] {
+  given logger: Logger[F] = LoggerFactory[F].getLogger
 
   override def create(maintenance: Maintenance): F[CommandResponse[Maintenance]] =
     Logger[F].info(s"Creating maintenance with ID: ${maintenance.id}") *> {

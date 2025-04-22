@@ -1,23 +1,23 @@
 package com.scala_training.cats.http.routes
 
-import cats.effect.Sync
-import cats.implicits._
+import cats.effect.Concurrent
+import cats.implicits.*
 import com.scala_training.cats.application.CarService
 import com.scala_training.cats.http.handlers
 import com.scala_training.core.http.api.car.post.CreateCarRequest
-import org.http4s._
-import org.http4s.circe._
+import org.http4s.*
+import org.http4s.circe.*
 import org.http4s.dsl.Http4sDsl
 import org.typelevel.log4cats.Logger
 
-class CarRoutes[F[_]: Sync: Logger](
+class CarRoutes[F[_]: {Concurrent, Logger}](
   carService: CarService[F],
   errorHandler: handlers.HttpErrorHandler[F],
   responseHandler: handlers.CarResponseHandler[F]
 ) extends Http4sDsl[F] {
-  import io.circe.generic.auto._
+  import io.circe.generic.auto.*
 
-  implicit def createCarReqDecoder: EntityDecoder[F, CreateCarRequest] = jsonOf[F, CreateCarRequest]
+  given createCarReqDecoder: EntityDecoder[F, CreateCarRequest] = jsonOf[F, CreateCarRequest]
 
   val routes: HttpRoutes[F] = HttpRoutes.of[F] {
     case req @ POST -> Root / "api" / "car" =>

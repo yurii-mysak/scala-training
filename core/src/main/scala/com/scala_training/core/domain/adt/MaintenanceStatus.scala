@@ -16,11 +16,10 @@ sealed trait MaintenanceStatus extends JsonSerializable {
 
 object MaintenanceStatus {
 
-  implicit val maintenanceStatusMeta: Meta[MaintenanceStatus] =
-    Meta[String].timap[MaintenanceStatus](str =>
-      MaintenanceStatus
-        .fromString(str)
-    )(_.value)
+  given maintenanceStatusMeta: Meta[MaintenanceStatus] = Meta[String].timap[MaintenanceStatus](str =>
+    MaintenanceStatus
+      .fromString(str)
+  )(_.value)
 
   case object Created extends MaintenanceStatus {
     override val value: String = "created"

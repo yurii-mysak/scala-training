@@ -11,11 +11,11 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import org.typelevel.log4cats.Logger
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 import io.circe.parser.decode
-import io.circe.generic.auto._
+import io.circe.generic.auto.*
 
 class HttpErrorHandlerSpec extends AsyncFlatSpec with AsyncIOSpec with Matchers with ScalaCheckPropertyChecks {
 
-  implicit def logger: Logger[IO] = Slf4jLogger.getLogger[IO]
+  given logger: Logger[IO] = Slf4jLogger.getLogger[IO]
 
   val handler = new HttpErrorHandler[IO]
 
@@ -42,7 +42,7 @@ class HttpErrorHandlerSpec extends AsyncFlatSpec with AsyncIOSpec with Matchers 
 
   case class ErrorResponse(code: String, message: String)
 
-  it should "handle AppErrors with correct status and structure in response" in {
+  it should "handle AppErrors with correct status and structure in response" in
     forAll(appErrorGen) { error =>
       // NOTE: the only way I could run and execute tests, but I feel it is wrong and could be due to versions used
       val response       = handler.handleError(error.message)(error).unsafeRunSync()
@@ -68,9 +68,8 @@ class HttpErrorHandlerSpec extends AsyncFlatSpec with AsyncIOSpec with Matchers 
       }
       response.status shouldBe expectedStatus
     }
-  }
 
-  it should "handle Throwables with InternalServerError status and structure in response" in {
+  it should "handle Throwables with InternalServerError status and structure in response" in
     forAll(throwableGen) { error =>
       val response   = handler.handleError(error.getMessage)(error).unsafeRunSync()
       val bodyText   = response.bodyText.compile.string.unsafeRunSync()
@@ -83,5 +82,4 @@ class HttpErrorHandlerSpec extends AsyncFlatSpec with AsyncIOSpec with Matchers 
       }
       response.status shouldBe Status.InternalServerError
     }
-  }
 }

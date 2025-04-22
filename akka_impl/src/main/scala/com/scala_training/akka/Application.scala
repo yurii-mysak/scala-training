@@ -3,14 +3,14 @@ package com.scala_training.akka
 import akka.actor.typed.scaladsl.Behaviors
 import akka.actor.typed.{ActorSystem, DispatcherSelector}
 import akka.http.scaladsl.Http
-import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Directives.*
 import akka.util.Timeout
 import http.controller.{Car, Maintenance}
 import persistence.model.car.CarManager
 import persistence.model.maintenance.MaintenanceManager
 import persistence.repository.{CarRepository, MaintenanceRepository}
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success}
 
@@ -18,10 +18,10 @@ object Application {
 
   def main(args: Array[String]): Unit = {
     // Create Actor system
-    implicit val system: ActorSystem[?]       = ActorSystem(Behaviors.empty, "CarMine")
-    implicit val ec: ExecutionContextExecutor =
+    given system: ActorSystem[?]       = ActorSystem(Behaviors.empty, "CarMine")
+    given ec: ExecutionContextExecutor =
       system.dispatchers.lookup(DispatcherSelector.fromConfig("akka.dispatchers.http-dispatcher"))
-    implicit val timeout: Timeout             = 3.seconds
+    given timeout: Timeout             = 3.seconds
 
     val carManager            = system.systemActorOf(CarManager(), "car-manager")
     val maintenanceManager    = system.systemActorOf(MaintenanceManager(), "maintenance-manager")

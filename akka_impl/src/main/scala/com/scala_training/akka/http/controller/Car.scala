@@ -1,7 +1,7 @@
 package com.scala_training.akka.http.controller
 
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Directives.*
 import akka.http.scaladsl.server.PathMatchers.JavaUUID
 import akka.http.scaladsl.server.Route
 import com.scala_training.akka.persistence.model.car.Car
@@ -17,9 +17,10 @@ import scala.util.{Failure, Success}
 
 object Car extends FailFastCirceSupport {
 
-  import io.circe.generic.auto._
+  import io.circe.generic.auto.*
   // needed to make the Year type work with Circe
-  import com.scala_training.core.http.codec.YearCodec._
+  import com.scala_training.core.http.codec.YearCodec.*
+  import com.scala_training.core.http.codec.YearCodec.given
 
   def routes(carRepository: CarRepository)(
     implicit ec: ExecutionContext

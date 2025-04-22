@@ -53,9 +53,8 @@ class MaintenanceStatusSpec extends AnyFlatSpec with Matchers {
 
   it should "fail to deserialize invalid status" in {
     val invalidJson = "\"invalid_status\""
-    an[IllegalArgumentException] should be thrownBy {
+    an[IllegalArgumentException] should be thrownBy
       mapper.readValue(invalidJson, classOf[MaintenanceStatus])
-    }
   }
 
   it should "fail to deserialize uppercase status values" in {
@@ -69,9 +68,8 @@ class MaintenanceStatusSpec extends AnyFlatSpec with Matchers {
     )
 
     statuses.foreach { value =>
-      an[IllegalArgumentException] should be thrownBy {
+      an[IllegalArgumentException] should be thrownBy
         mapper.readValue(s"\"${value.toUpperCase}\"", classOf[MaintenanceStatus])
-      }
     }
   }
 
@@ -86,12 +84,10 @@ class MaintenanceStatusSpec extends AnyFlatSpec with Matchers {
     val nullJson  = "null"
     val emptyJson = "\"\""
 
-    a[IllegalArgumentException] should be thrownBy {
+    a[IllegalArgumentException] should be thrownBy
       mapper.readValue(nullJson, classOf[MaintenanceStatus])
-    }
 
-    an[IllegalArgumentException] should be thrownBy {
+    an[IllegalArgumentException] should be thrownBy
       mapper.readValue(emptyJson, classOf[MaintenanceStatus])
-    }
   }
 }

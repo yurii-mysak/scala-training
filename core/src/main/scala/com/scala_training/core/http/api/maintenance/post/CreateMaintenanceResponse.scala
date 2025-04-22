@@ -9,14 +9,15 @@ case class CreateMaintenanceResponse[A <: MaintenanceCore](id: UUID, status: Str
 
 object CreateMaintenanceResponse {
 
-  implicit def toCreateMaintenanceResponse[A <: MaintenanceCore](
-    response: CommandResponse[A]
-  ): CreateMaintenanceResponse[A] = response match {
-    case CommandResponse.Success(Some(maintenance: MaintenanceCore)) =>
-      CreateMaintenanceResponse(maintenance.id, maintenance.status.value)
-    case CommandResponse.Success(None)                               =>
-      throw new IllegalStateException("Maintenance creation succeeded but no maintenance was returned")
-    case CommandResponse.Failure(reason)                             =>
-      throw new IllegalStateException(reason)
+  given [A <: MaintenanceCore]: Conversion[CommandResponse[A], CreateMaintenanceResponse[A]] with {
+
+    def apply(response: CommandResponse[A]): CreateMaintenanceResponse[A] = response match {
+      case CommandResponse.Success(Some(maintenance: MaintenanceCore)) =>
+        CreateMaintenanceResponse(maintenance.id, maintenance.status.value)
+      case CommandResponse.Success(None)                               =>
+        throw new IllegalStateException("Maintenance creation succeeded but no maintenance was returned")
+      case CommandResponse.Failure(reason)                             =>
+        throw new IllegalStateException(reason)
+    }
   }
 }

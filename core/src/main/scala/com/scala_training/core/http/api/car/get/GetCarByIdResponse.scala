@@ -10,8 +10,9 @@ case class GetCarByIdResponse[A <: CarCore](id: UUID, make: String, model: Strin
 
 object GetCarByIdResponse {
 
-  implicit def toGetCarByIdResponse[A <: CarCore](response: CommandResponse[A]): GetCarByIdResponse[A] =
-    response match {
+  given [A <: CarCore]: Conversion[CommandResponse[A], GetCarByIdResponse[A]] with {
+
+    def apply(response: CommandResponse[A]): GetCarByIdResponse[A] = response match {
       case CommandResponse.Success(Some(car: A)) =>
         GetCarByIdResponse(car.id, car.make, car.model, car.year)
       case CommandResponse.Success(None)         =>
@@ -19,4 +20,5 @@ object GetCarByIdResponse {
       case CommandResponse.Failure(reason)       =>
         throw new IllegalStateException(reason)
     }
+  }
 }

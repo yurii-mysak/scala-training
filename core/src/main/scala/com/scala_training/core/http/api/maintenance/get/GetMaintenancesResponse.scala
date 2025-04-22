@@ -9,27 +9,26 @@ case class GetMaintenancesResponse[A <: MaintenanceCore](maintenances: Map[UUID,
 
 object GetMaintenancesResponse {
 
-  implicit def toGetMaintenancesResponse[A <: MaintenanceCore](
-    response: CommandResponse[Map[UUID, A]]
-  ): GetMaintenancesResponse[A] = response match {
-    case CommandResponse.Success(Some(maintenances: Map[UUID, MaintenanceCore])) =>
-      GetMaintenancesResponse(maintenances.map { case (id, maintenance) =>
-        id -> GetMaintenanceByIdResponse(
-          maintenance.id,
-          maintenance.carId,
-          maintenance.maintenanceTypes.map(maintenanceType => maintenanceType.id),
-          maintenance.status.value,
-          maintenance.description,
-          maintenance.scheduledDate
-            .getOrElse(throw new IllegalStateException(s"Incorrect state of maintenance ${maintenance.id}"))
-            .toString
-        )
-      })
+  given [A <: MaintenanceCore]: Conversion[CommandResponse[Map[UUID, A]], GetMaintenancesResponse[A]] with {
 
-    case CommandResponse.Success(None) =>
-      throw new IllegalStateException("No maintenances found")
-
-    case CommandResponse.Failure(reason) =>
-      throw new IllegalStateException(reason)
+    def apply(response: CommandResponse[Map[UUID, A]]): GetMaintenancesResponse[A] = response match {
+      case CommandResponse.Success(Some(maintenances: Map[UUID, MaintenanceCore])) =>
+        GetMaintenancesResponse[A](maintenances.map { case (id, maintenance) =>
+          id -> GetMaintenanceByIdResponse[A](
+            maintenance.id,
+            maintenance.carId,
+            maintenance.maintenanceTypes.map(maintenanceType => maintenanceType.id),
+            maintenance.status.value,
+            maintenance.description,
+            maintenance.scheduledDate
+              .getOrElse(throw new IllegalStateException(s"Incorrect state of maintenance ${maintenance.id}"))
+              .toString
+          )
+        })
+      case CommandResponse.Success(None)                                           =>
+        throw new IllegalStateException("No maintenances found")
+      case CommandResponse.Failure(reason)                                         =>
+        throw new IllegalStateException(reason)
+    }
   }
 }

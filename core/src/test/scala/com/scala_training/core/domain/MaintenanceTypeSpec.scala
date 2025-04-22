@@ -59,9 +59,8 @@ class MaintenanceTypeSpec extends AnyFlatSpec with Matchers {
 
   it should "fail to deserialize invalid type" in {
     val invalidJson = "\"invalid_type\""
-    an[IllegalArgumentException] should be thrownBy {
+    an[IllegalArgumentException] should be thrownBy
       mapper.readValue(invalidJson, classOf[MaintenanceType])
-    }
   }
 
   it should "fail to deserialize uppercase type values" in {
@@ -78,9 +77,8 @@ class MaintenanceTypeSpec extends AnyFlatSpec with Matchers {
     )
 
     types.foreach { value =>
-      an[IllegalArgumentException] should be thrownBy {
+      an[IllegalArgumentException] should be thrownBy
         mapper.readValue(s"\"${value.toUpperCase}\"", classOf[MaintenanceType])
-      }
     }
   }
 
@@ -95,12 +93,10 @@ class MaintenanceTypeSpec extends AnyFlatSpec with Matchers {
     val nullJson  = "null"
     val emptyJson = "\"\""
 
-    a[IllegalArgumentException] should be thrownBy {
+    a[IllegalArgumentException] should be thrownBy
       mapper.readValue(nullJson, classOf[MaintenanceType])
-    }
 
-    an[IllegalArgumentException] should be thrownBy {
+    an[IllegalArgumentException] should be thrownBy
       mapper.readValue(emptyJson, classOf[MaintenanceType])
-    }
   }
 }

@@ -1,15 +1,15 @@
 package com.scala_training.core.http.codec
 
-import io.circe.parser._
-import io.circe.syntax._
+import io.circe.parser.*
+import io.circe.syntax.*
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+import com.scala_training.core.http.codec.YearCodec.*
+import com.scala_training.core.http.codec.YearCodec.given
 
 import java.time.Year
-import com.scala_training.core.http.codec.YearCodec._
 
 class YearCodecSpec extends AnyFlatSpec with Matchers {
-
   "YearCodec" should "encode Year correctly" in {
     val year = Year.of(2024)
     year.asJson.noSpaces should be("2024")

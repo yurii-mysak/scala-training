@@ -42,7 +42,7 @@ object Car {
     state: State[Car],
     command: Command
   ): akka.persistence.typed.scaladsl.Effect[Event, State[Car]] = {
-    import Command._
+    import Command.*
 
     command match {
       case Create(car, replyTo) =>
@@ -59,12 +59,12 @@ object Car {
         akka.persistence.typed.scaladsl.Effect.reply(replyTo)(CommandResponse.Success(state.state))
 
       // Implement other command handlers here
-      case _               => akka.persistence.typed.scaladsl.Effect.none
+      case _ => akka.persistence.typed.scaladsl.Effect.none
     }
   }
 
   private def handleEvent(state: State[Car], event: Event): State[Car] = {
-    import Event._
+    import Event.*
 
     event match {
       case Created(car) => State(Some(car))

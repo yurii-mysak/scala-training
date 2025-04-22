@@ -1,6 +1,6 @@
 package com.scala_training.akka.persistence.repository
 
-import akka.actor.typed.scaladsl.AskPattern._
+import akka.actor.typed.scaladsl.AskPattern.*
 import akka.actor.typed.{ActorRef, ActorSystem}
 import akka.util.Timeout
 import com.scala_training.akka.persistence.command.car.Command

@@ -44,7 +44,7 @@ object Maintenance {
     state: State[Maintenance],
     command: Command
   ): akka.persistence.typed.scaladsl.Effect[Event, State[Maintenance]] = {
-    import Command._
+    import Command.*
 
     command match {
       case Create(maintenance, replyTo) =>
@@ -79,7 +79,7 @@ object Maintenance {
   }
 
   private def handleEvent(state: State[Maintenance], event: Event): State[Maintenance] = {
-    import Event._
+    import Event.*
 
     event match {
       case Created(maintenance)       => State(Some(maintenance))

@@ -3,7 +3,7 @@ package com.scala_training.akka.persistence.model.maintenance
 import akka.actor.typed.scaladsl.AskPattern.Askable
 import akka.actor.typed.scaladsl.{ActorContext, Behaviors}
 import akka.actor.typed.{ActorRef, Behavior}
-import com.scala_training.akka.persistence.event.maintenance.Event._
+import com.scala_training.akka.persistence.event.maintenance.Event.*
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
 import akka.util.Timeout
@@ -49,8 +49,8 @@ object MaintenanceManager {
           import context.executionContext
 
           import scala.concurrent.Future
-          import scala.concurrent.duration._
-          implicit val timeout: Timeout = 3.seconds
+          import scala.concurrent.duration.*
+          given timeout: Timeout = 3.seconds
 
           if (maintenanceActors.isEmpty) {
             replyTo ! CommandResponse.Success(Some(Map.empty))

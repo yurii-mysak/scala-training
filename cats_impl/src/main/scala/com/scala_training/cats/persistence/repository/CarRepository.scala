@@ -1,14 +1,14 @@
 package com.scala_training.cats.persistence.repository
 
-import cats.effect.Sync
-import cats.implicits._
+import cats.effect.Concurrent
+import cats.implicits.*
 import com.scala_training.cats.persistence.model.Car
 import doobie.Meta
 import com.scala_training.core.persistence.command.CommandResponse
 import doobie.util.transactor.Transactor
-import doobie.implicits._
-import doobie.postgres.implicits._
-import org.typelevel.log4cats.Logger
+import doobie.implicits.*
+import doobie.postgres.implicits.*
+import org.typelevel.log4cats.{Logger, LoggerFactory}
 
 import java.time.Year
 import java.util.UUID
@@ -19,8 +19,9 @@ trait CarRepositoryAPI[F[_]] {
   def getAll: F[CommandResponse[Map[UUID, Car]]]
 }
 
-class CarRepository[F[_]: Sync: Logger](xa: Transactor[F]) extends CarRepositoryAPI[F] {
-  implicit val yearMeta: Meta[Year] = Meta[Int].imap(Year.of)(_.getValue)
+class CarRepository[F[_]: {Concurrent, LoggerFactory}](xa: Transactor[F]) extends CarRepositoryAPI[F] {
+  given yearMeta: Meta[Year] = Meta[Int].imap(Year.of)(_.getValue)
+  given logger: Logger[F]    = LoggerFactory[F].getLogger
 
   override def create(car: Car): F[CommandResponse[Car]] = sql"""
       INSERT INTO cars (id, make, model, year, created_at, updated_at)

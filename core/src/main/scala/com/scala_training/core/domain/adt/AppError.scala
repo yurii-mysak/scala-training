@@ -23,7 +23,7 @@ object AppError {
     val code = "INTERNAL_ERROR"
   }
 
-  implicit val encoder: Encoder[AppError] = (error: AppError) =>
+  given encoder: Encoder[AppError] = (error: AppError) =>
     Json.obj(
       "code"    -> Json.fromString(error.code),
       "message" -> Json.fromString(error.message)

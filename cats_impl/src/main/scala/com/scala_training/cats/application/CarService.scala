@@ -1,6 +1,6 @@
 package com.scala_training.cats.application
 
-import cats.effect.Sync
+import cats.effect.Concurrent
 import com.scala_training.cats.persistence.model.Car
 import com.scala_training.cats.persistence.repository.CarRepositoryAPI
 import com.scala_training.core.http.api.car.post.CreateCarRequest
@@ -9,7 +9,7 @@ import com.scala_training.core.persistence.command.CommandResponse
 import java.time.LocalDateTime
 import java.util.UUID
 
-class CarService[F[_]: Sync](repository: CarRepositoryAPI[F]) {
+class CarService[F[_]: Concurrent](repository: CarRepositoryAPI[F]) {
 
   def createCar(req: CreateCarRequest): F[CommandResponse[Car]] = {
     val now = LocalDateTime.now()

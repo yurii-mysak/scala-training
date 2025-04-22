@@ -8,7 +8,7 @@ import akka.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
 import akka.util.Timeout
 import com.scala_training.akka.persistence.command.car.Command
 import com.scala_training.akka.persistence.event.car.Event
-import com.scala_training.akka.persistence.event.car.Event._
+import com.scala_training.akka.persistence.event.car.Event.*
 import com.scala_training.akka.persistence.model.State
 import com.scala_training.core.persistence.command.CommandResponse
 
@@ -49,8 +49,8 @@ object CarManager {
           import context.executionContext
 
           import scala.concurrent.Future
-          import scala.concurrent.duration._
-          implicit val timeout: Timeout = 3.seconds
+          import scala.concurrent.duration.*
+          given timeout: Timeout = 3.seconds
 
           if (carActors.isEmpty) {
             replyTo ! CommandResponse.Success(Some(Map.empty))

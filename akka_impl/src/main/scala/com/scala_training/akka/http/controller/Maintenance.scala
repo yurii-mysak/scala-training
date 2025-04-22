@@ -1,7 +1,7 @@
 package com.scala_training.akka.http.controller
 
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.Directives._
+import akka.http.scaladsl.server.Directives.*
 import akka.http.scaladsl.server.Route
 import com.scala_training.akka.persistence.model.maintenance.Maintenance
 import com.scala_training.akka.persistence.repository.MaintenanceRepository
@@ -17,7 +17,7 @@ import java.util.UUID
 
 object Maintenance extends FailFastCirceSupport {
 
-  import io.circe.generic.auto._
+  import io.circe.generic.auto.*
 
   def routes(maintenanceRepository: MaintenanceRepository)(
     implicit ec: ExecutionContext
