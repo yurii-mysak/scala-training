@@ -30,8 +30,7 @@ class MaintenanceRoutes[F[_]: {Concurrent, Logger}](
         _      <- Logger[F].info("Attempting to create new maintenance")
         mReq   <- req.as[CreateMaintenanceRequest]
         types  <- validateMaintenanceTypes(mReq.maintenanceTypes)
-        maint   = createMaintenance(mReq, types)
-        result <- maintenanceService.createMaintenance(maint).attempt
+        result <- maintenanceService.createMaintenance(mReq, types).attempt
         resp   <- responseHandler.handleCreateResponse(result)
       } yield resp).handleErrorWith(errorHandler.handleError("Unexpected error during maintenance creation"))
 
@@ -60,18 +59,4 @@ class MaintenanceRoutes[F[_]: {Concurrent, Logger}](
   // todo: what it does?
   private def validateMaintenanceTypes(types: List[UUID]): F[List[MaintenanceType]] =
     types.traverse(uuid => Concurrent[F].pure(MaintenanceType.fromUUID(uuid)))
-
-  private def createMaintenance(req: CreateMaintenanceRequest, types: List[MaintenanceType]): Maintenance = {
-    val now = LocalDateTime.now()
-    Maintenance(
-      UUID.randomUUID(),
-      req.carId,
-      req.description,
-      types,
-      Some(req.scheduledDate),
-      MaintenanceStatus.Created,
-      now,
-      Some(now)
-    )
-  }
 }

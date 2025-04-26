@@ -16,6 +16,8 @@ import java.util.UUID
 
 class CarResponseHandler[F[_]: {Concurrent, Logger}] extends Http4sDsl[F] {
   import io.circe.generic.auto.*
+  import com.scala_training.core.http.codec.YearCodec.*
+  import com.scala_training.core.http.codec.YearCodec.given
 
   given createCarRespEncoder[A <: CarCore]: EntityEncoder[F, CreateCarResponse[A]] = jsonEncoderOf[CreateCarResponse[A]]
 
