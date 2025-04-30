@@ -1,0 +1,1967 @@
+Compiled from "CarResponseHandler.scala"
+public class com.scala_training.cats.http.handlers.CarResponseHandler<F> implements org.http4s.dsl.Http4sDsl<F> {
+  public static final long OFFSET$0;
+
+  public com.scala_training.cats.http.handlers.CarResponseHandler(cats.effect.kernel.GenConcurrent<F, java.lang.Throwable>, org.typelevel.log4cats.Logger<F>);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+       5: aload_0
+       6: aload_2
+       7: putfield      #354                // Field evidence$2:Lorg/typelevel/log4cats/Logger;
+      10: aload_0
+      11: invokespecial #357                // Method java/lang/Object."<init>":()V
+      14: aload_0
+      15: invokestatic  #361                // InterfaceMethod org/http4s/dsl/impl/Methods.$init$:(Lorg/http4s/dsl/impl/Methods;)V
+      18: aload_0
+      19: invokestatic  #364                // InterfaceMethod org/http4s/dsl/impl/Statuses.$init$:(Lorg/http4s/dsl/impl/Statuses;)V
+      22: aload_0
+      23: invokestatic  #367                // InterfaceMethod org/http4s/dsl/Http4sDsl2.$init$:(Lorg/http4s/dsl/Http4sDsl2;)V
+      26: aload_0
+      27: invokestatic  #370                // InterfaceMethod org/http4s/dsl/Http4sDsl.$init$:(Lorg/http4s/dsl/Http4sDsl;)V
+      30: invokestatic  #375                // Method scala/runtime/Statics.releaseFence:()V
+      33: return
+
+  public org.http4s.Method GET();
+    Code:
+       0: aload_0
+       1: getfield      #400                // Field GET:Lorg/http4s/Method;
+       4: areturn
+
+  public org.http4s.Method HEAD();
+    Code:
+       0: aload_0
+       1: getfield      #402                // Field HEAD:Lorg/http4s/Method;
+       4: areturn
+
+  public org.http4s.Method POST();
+    Code:
+       0: aload_0
+       1: getfield      #404                // Field POST:Lorg/http4s/Method;
+       4: areturn
+
+  public org.http4s.Method PUT();
+    Code:
+       0: aload_0
+       1: getfield      #406                // Field PUT:Lorg/http4s/Method;
+       4: areturn
+
+  public org.http4s.Method DELETE();
+    Code:
+       0: aload_0
+       1: getfield      #408                // Field DELETE:Lorg/http4s/Method;
+       4: areturn
+
+  public org.http4s.Method CONNECT();
+    Code:
+       0: aload_0
+       1: getfield      #410                // Field CONNECT:Lorg/http4s/Method;
+       4: areturn
+
+  public org.http4s.Method OPTIONS();
+    Code:
+       0: aload_0
+       1: getfield      #412                // Field OPTIONS:Lorg/http4s/Method;
+       4: areturn
+
+  public org.http4s.Method TRACE();
+    Code:
+       0: aload_0
+       1: getfield      #414                // Field TRACE:Lorg/http4s/Method;
+       4: areturn
+
+  public org.http4s.Method PATCH();
+    Code:
+       0: aload_0
+       1: getfield      #416                // Field PATCH:Lorg/http4s/Method;
+       4: areturn
+
+  public void org$http4s$dsl$impl$Methods$_setter_$GET_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #400                // Field GET:Lorg/http4s/Method;
+       5: return
+
+  public void org$http4s$dsl$impl$Methods$_setter_$HEAD_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #402                // Field HEAD:Lorg/http4s/Method;
+       5: return
+
+  public void org$http4s$dsl$impl$Methods$_setter_$POST_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #404                // Field POST:Lorg/http4s/Method;
+       5: return
+
+  public void org$http4s$dsl$impl$Methods$_setter_$PUT_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #406                // Field PUT:Lorg/http4s/Method;
+       5: return
+
+  public void org$http4s$dsl$impl$Methods$_setter_$DELETE_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #408                // Field DELETE:Lorg/http4s/Method;
+       5: return
+
+  public void org$http4s$dsl$impl$Methods$_setter_$CONNECT_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #410                // Field CONNECT:Lorg/http4s/Method;
+       5: return
+
+  public void org$http4s$dsl$impl$Methods$_setter_$OPTIONS_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #412                // Field OPTIONS:Lorg/http4s/Method;
+       5: return
+
+  public void org$http4s$dsl$impl$Methods$_setter_$TRACE_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #414                // Field TRACE:Lorg/http4s/Method;
+       5: return
+
+  public void org$http4s$dsl$impl$Methods$_setter_$PATCH_$eq(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #416                // Field PATCH:Lorg/http4s/Method;
+       5: return
+
+  public final org.http4s.dsl.impl.Auth$as$ as();
+    Code:
+       0: aload_0
+       1: getfield      #431                // Field as$lzy1:Ljava/lang/Object;
+       4: astore_1
+       5: aload_1
+       6: instanceof    #72                 // class org/http4s/dsl/impl/Auth$as$
+       9: ifeq          17
+      12: aload_1
+      13: checkcast     #72                 // class org/http4s/dsl/impl/Auth$as$
+      16: areturn
+      17: aload_1
+      18: getstatic     #434                // Field scala/runtime/LazyVals$NullValue$.MODULE$:Lscala/runtime/LazyVals$NullValue$;
+      21: if_acmpne     29
+      24: aconst_null
+      25: checkcast     #72                 // class org/http4s/dsl/impl/Auth$as$
+      28: areturn
+      29: aload_0
+      30: invokespecial #438                // Method as$lzyINIT1:()Ljava/lang/Object;
+      33: checkcast     #72                 // class org/http4s/dsl/impl/Auth$as$
+      36: areturn
+
+  public org.http4s.Method http4sMethodSyntax(org.http4s.Method);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #464                // InterfaceMethod org/http4s/dsl/RequestDsl.http4sMethodSyntax$:(Lorg/http4s/dsl/RequestDsl;Lorg/http4s/Method;)Lorg/http4s/Method;
+       5: areturn
+
+  public org.http4s.dsl.impl.MethodConcat http4sMethodConcatSyntax(org.http4s.dsl.impl.MethodConcat);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #471                // InterfaceMethod org/http4s/dsl/RequestDsl.http4sMethodConcatSyntax$:(Lorg/http4s/dsl/RequestDsl;Lorg/http4s/dsl/impl/MethodConcat;)Lorg/http4s/dsl/impl/MethodConcat;
+       5: areturn
+
+  public org.http4s.Status Continue();
+    Code:
+       0: aload_0
+       1: getfield      #475                // Field Continue:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status SwitchingProtocols();
+    Code:
+       0: aload_0
+       1: getfield      #477                // Field SwitchingProtocols:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Processing();
+    Code:
+       0: aload_0
+       1: getfield      #479                // Field Processing:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Ok();
+    Code:
+       0: aload_0
+       1: getfield      #481                // Field Ok:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Created();
+    Code:
+       0: aload_0
+       1: getfield      #483                // Field Created:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Accepted();
+    Code:
+       0: aload_0
+       1: getfield      #485                // Field Accepted:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status NonAuthoritativeInformation();
+    Code:
+       0: aload_0
+       1: getfield      #487                // Field NonAuthoritativeInformation:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status NoContent();
+    Code:
+       0: aload_0
+       1: getfield      #489                // Field NoContent:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status ResetContent();
+    Code:
+       0: aload_0
+       1: getfield      #491                // Field ResetContent:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status PartialContent();
+    Code:
+       0: aload_0
+       1: getfield      #493                // Field PartialContent:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status MultiStatus();
+    Code:
+       0: aload_0
+       1: getfield      #495                // Field MultiStatus:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status AlreadyReported();
+    Code:
+       0: aload_0
+       1: getfield      #497                // Field AlreadyReported:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status IMUsed();
+    Code:
+       0: aload_0
+       1: getfield      #499                // Field IMUsed:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status MultipleChoices();
+    Code:
+       0: aload_0
+       1: getfield      #501                // Field MultipleChoices:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status MovedPermanently();
+    Code:
+       0: aload_0
+       1: getfield      #503                // Field MovedPermanently:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Found();
+    Code:
+       0: aload_0
+       1: getfield      #505                // Field Found:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status SeeOther();
+    Code:
+       0: aload_0
+       1: getfield      #507                // Field SeeOther:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status NotModified();
+    Code:
+       0: aload_0
+       1: getfield      #509                // Field NotModified:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status UseProxy();
+    Code:
+       0: aload_0
+       1: getfield      #511                // Field UseProxy:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status TemporaryRedirect();
+    Code:
+       0: aload_0
+       1: getfield      #513                // Field TemporaryRedirect:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status PermanentRedirect();
+    Code:
+       0: aload_0
+       1: getfield      #515                // Field PermanentRedirect:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status BadRequest();
+    Code:
+       0: aload_0
+       1: getfield      #517                // Field BadRequest:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Unauthorized();
+    Code:
+       0: aload_0
+       1: getfield      #519                // Field Unauthorized:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status PaymentRequired();
+    Code:
+       0: aload_0
+       1: getfield      #521                // Field PaymentRequired:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Forbidden();
+    Code:
+       0: aload_0
+       1: getfield      #523                // Field Forbidden:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status NotFound();
+    Code:
+       0: aload_0
+       1: getfield      #525                // Field NotFound:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status MethodNotAllowed();
+    Code:
+       0: aload_0
+       1: getfield      #527                // Field MethodNotAllowed:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status NotAcceptable();
+    Code:
+       0: aload_0
+       1: getfield      #529                // Field NotAcceptable:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status ProxyAuthenticationRequired();
+    Code:
+       0: aload_0
+       1: getfield      #531                // Field ProxyAuthenticationRequired:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status RequestTimeout();
+    Code:
+       0: aload_0
+       1: getfield      #533                // Field RequestTimeout:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Conflict();
+    Code:
+       0: aload_0
+       1: getfield      #535                // Field Conflict:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Gone();
+    Code:
+       0: aload_0
+       1: getfield      #537                // Field Gone:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status LengthRequired();
+    Code:
+       0: aload_0
+       1: getfield      #539                // Field LengthRequired:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status PreconditionFailed();
+    Code:
+       0: aload_0
+       1: getfield      #541                // Field PreconditionFailed:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status PayloadTooLarge();
+    Code:
+       0: aload_0
+       1: getfield      #543                // Field PayloadTooLarge:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status UriTooLong();
+    Code:
+       0: aload_0
+       1: getfield      #545                // Field UriTooLong:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status UnsupportedMediaType();
+    Code:
+       0: aload_0
+       1: getfield      #547                // Field UnsupportedMediaType:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status RangeNotSatisfiable();
+    Code:
+       0: aload_0
+       1: getfield      #549                // Field RangeNotSatisfiable:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status ExpectationFailed();
+    Code:
+       0: aload_0
+       1: getfield      #551                // Field ExpectationFailed:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status UnprocessableEntity();
+    Code:
+       0: aload_0
+       1: getfield      #553                // Field UnprocessableEntity:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status Locked();
+    Code:
+       0: aload_0
+       1: getfield      #555                // Field Locked:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status FailedDependency();
+    Code:
+       0: aload_0
+       1: getfield      #557                // Field FailedDependency:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status UpgradeRequired();
+    Code:
+       0: aload_0
+       1: getfield      #559                // Field UpgradeRequired:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status PreconditionRequired();
+    Code:
+       0: aload_0
+       1: getfield      #561                // Field PreconditionRequired:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status TooManyRequests();
+    Code:
+       0: aload_0
+       1: getfield      #563                // Field TooManyRequests:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status RequestHeaderFieldsTooLarge();
+    Code:
+       0: aload_0
+       1: getfield      #565                // Field RequestHeaderFieldsTooLarge:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status UnavailableForLegalReasons();
+    Code:
+       0: aload_0
+       1: getfield      #567                // Field UnavailableForLegalReasons:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status InternalServerError();
+    Code:
+       0: aload_0
+       1: getfield      #569                // Field InternalServerError:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status NotImplemented();
+    Code:
+       0: aload_0
+       1: getfield      #571                // Field NotImplemented:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status BadGateway();
+    Code:
+       0: aload_0
+       1: getfield      #573                // Field BadGateway:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status ServiceUnavailable();
+    Code:
+       0: aload_0
+       1: getfield      #575                // Field ServiceUnavailable:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status GatewayTimeout();
+    Code:
+       0: aload_0
+       1: getfield      #577                // Field GatewayTimeout:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status HttpVersionNotSupported();
+    Code:
+       0: aload_0
+       1: getfield      #579                // Field HttpVersionNotSupported:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status VariantAlsoNegotiates();
+    Code:
+       0: aload_0
+       1: getfield      #581                // Field VariantAlsoNegotiates:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status InsufficientStorage();
+    Code:
+       0: aload_0
+       1: getfield      #583                // Field InsufficientStorage:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status LoopDetected();
+    Code:
+       0: aload_0
+       1: getfield      #585                // Field LoopDetected:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status NotExtended();
+    Code:
+       0: aload_0
+       1: getfield      #587                // Field NotExtended:Lorg/http4s/Status;
+       4: areturn
+
+  public org.http4s.Status NetworkAuthenticationRequired();
+    Code:
+       0: aload_0
+       1: getfield      #589                // Field NetworkAuthenticationRequired:Lorg/http4s/Status;
+       4: areturn
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Continue_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #475                // Field Continue:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$SwitchingProtocols_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #477                // Field SwitchingProtocols:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Processing_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #479                // Field Processing:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Ok_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #481                // Field Ok:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Created_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #483                // Field Created:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Accepted_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #485                // Field Accepted:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$NonAuthoritativeInformation_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #487                // Field NonAuthoritativeInformation:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$NoContent_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #489                // Field NoContent:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$ResetContent_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #491                // Field ResetContent:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$PartialContent_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #493                // Field PartialContent:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$MultiStatus_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #495                // Field MultiStatus:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$AlreadyReported_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #497                // Field AlreadyReported:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$IMUsed_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #499                // Field IMUsed:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$MultipleChoices_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #501                // Field MultipleChoices:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$MovedPermanently_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #503                // Field MovedPermanently:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Found_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #505                // Field Found:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$SeeOther_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #507                // Field SeeOther:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$NotModified_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #509                // Field NotModified:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$UseProxy_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #511                // Field UseProxy:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$TemporaryRedirect_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #513                // Field TemporaryRedirect:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$PermanentRedirect_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #515                // Field PermanentRedirect:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$BadRequest_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #517                // Field BadRequest:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Unauthorized_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #519                // Field Unauthorized:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$PaymentRequired_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #521                // Field PaymentRequired:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Forbidden_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #523                // Field Forbidden:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$NotFound_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #525                // Field NotFound:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$MethodNotAllowed_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #527                // Field MethodNotAllowed:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$NotAcceptable_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #529                // Field NotAcceptable:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$ProxyAuthenticationRequired_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #531                // Field ProxyAuthenticationRequired:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$RequestTimeout_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #533                // Field RequestTimeout:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Conflict_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #535                // Field Conflict:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Gone_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #537                // Field Gone:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$LengthRequired_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #539                // Field LengthRequired:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$PreconditionFailed_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #541                // Field PreconditionFailed:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$PayloadTooLarge_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #543                // Field PayloadTooLarge:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$UriTooLong_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #545                // Field UriTooLong:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$UnsupportedMediaType_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #547                // Field UnsupportedMediaType:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$RangeNotSatisfiable_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #549                // Field RangeNotSatisfiable:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$ExpectationFailed_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #551                // Field ExpectationFailed:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$UnprocessableEntity_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #553                // Field UnprocessableEntity:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$Locked_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #555                // Field Locked:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$FailedDependency_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #557                // Field FailedDependency:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$UpgradeRequired_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #559                // Field UpgradeRequired:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$PreconditionRequired_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #561                // Field PreconditionRequired:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$TooManyRequests_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #563                // Field TooManyRequests:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$RequestHeaderFieldsTooLarge_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #565                // Field RequestHeaderFieldsTooLarge:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$UnavailableForLegalReasons_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #567                // Field UnavailableForLegalReasons:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$InternalServerError_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #569                // Field InternalServerError:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$NotImplemented_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #571                // Field NotImplemented:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$BadGateway_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #573                // Field BadGateway:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$ServiceUnavailable_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #575                // Field ServiceUnavailable:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$GatewayTimeout_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #577                // Field GatewayTimeout:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$HttpVersionNotSupported_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #579                // Field HttpVersionNotSupported:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$VariantAlsoNegotiates_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #581                // Field VariantAlsoNegotiates:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$InsufficientStorage_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #583                // Field InsufficientStorage:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$LoopDetected_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #585                // Field LoopDetected:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$NotExtended_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #587                // Field NotExtended:Lorg/http4s/Status;
+       5: return
+
+  public void org$http4s$dsl$impl$Statuses$_setter_$NetworkAuthenticationRequired_$eq(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #589                // Field NetworkAuthenticationRequired:Lorg/http4s/Status;
+       5: return
+
+  public org.http4s.Status http4sContinueSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #655                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sContinueSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/Status;
+       5: areturn
+
+  public org.http4s.Status http4sSwitchingProtocolsSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #659                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sSwitchingProtocolsSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/Status;
+       5: areturn
+
+  public org.http4s.Status http4sEarlyHintsSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #663                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sEarlyHintsSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/Status;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$OkOps http4sOkSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #669                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sOkSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$OkOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$CreatedOps http4sCreatedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #675                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sCreatedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$CreatedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$AcceptedOps http4sAcceptedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #681                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sAcceptedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$AcceptedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$NonAuthoritativeInformationOps http4sNonAuthoritativeInformationSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #687                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sNonAuthoritativeInformationSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$NonAuthoritativeInformationOps;
+       5: areturn
+
+  public org.http4s.Status http4sNoContentSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #691                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sNoContentSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/Status;
+       5: areturn
+
+  public org.http4s.Status http4sResetContentSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #695                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sResetContentSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/Status;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$PartialContentOps http4sPartialContentSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #701                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sPartialContentSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$PartialContentOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$MultiStatusOps http4sMultiStatusSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #707                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sMultiStatusSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$MultiStatusOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$AlreadyReportedOps http4sAlreadyReportedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #713                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sAlreadyReportedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$AlreadyReportedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$IMUsedOps http4sIMUsedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #719                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sIMUsedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$IMUsedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$MultipleChoicesOps http4sMultipleChoicesSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #725                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sMultipleChoicesSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$MultipleChoicesOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$MovedPermanentlyOps http4sMovedPermanentlySyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #731                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sMovedPermanentlySyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$MovedPermanentlyOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$FoundOps http4sFoundSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #737                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sFoundSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$FoundOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$SeeOtherOps http4sSeeOtherSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #743                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sSeeOtherSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$SeeOtherOps;
+       5: areturn
+
+  public org.http4s.Status http4sNotModifiedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #747                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sNotModifiedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/Status;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$TemporaryRedirectOps http4sTemporaryRedirectSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #753                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sTemporaryRedirectSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$TemporaryRedirectOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$PermanentRedirectOps http4sPermanentRedirectSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #759                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sPermanentRedirectSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$PermanentRedirectOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$BadRequestOps http4sBadRequestSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #765                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sBadRequestSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$BadRequestOps;
+       5: areturn
+
+  public org.http4s.Status http4sUnauthorizedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #769                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sUnauthorizedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/Status;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$PaymentRequiredOps http4sPaymentRequiredSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #775                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sPaymentRequiredSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$PaymentRequiredOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$ForbiddenOps http4sForbiddenSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #781                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sForbiddenSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$ForbiddenOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$NotFoundOps http4sNotFoundSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #787                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sNotFoundSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$NotFoundOps;
+       5: areturn
+
+  public org.http4s.Status http4sMethodNotAllowedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #791                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sMethodNotAllowedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/Status;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$NotAcceptableOps http4sNotAcceptableSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #797                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sNotAcceptableSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$NotAcceptableOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$ProxyAuthenticationRequiredOps http4sProxyAuthenticationRequiredSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #803                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sProxyAuthenticationRequiredSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$ProxyAuthenticationRequiredOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$RequestTimeoutOps http4sRequestTimeoutSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #809                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sRequestTimeoutSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$RequestTimeoutOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$ConflictOps http4sConflictSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #815                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sConflictSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$ConflictOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$GoneOps http4sGoneSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #821                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sGoneSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$GoneOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$LengthRequiredOps http4sLengthRequiredSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #827                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sLengthRequiredSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$LengthRequiredOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$PreconditionFailedOps http4sPreconditionFailedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #833                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sPreconditionFailedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$PreconditionFailedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$PayloadTooLargeOps http4sPayloadTooLargeSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #839                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sPayloadTooLargeSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$PayloadTooLargeOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$UriTooLongOps http4sUriTooLongSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #845                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sUriTooLongSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$UriTooLongOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$UnsupportedMediaTypeOps http4sUnsupportedMediaTypeSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #851                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sUnsupportedMediaTypeSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$UnsupportedMediaTypeOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$RangeNotSatisfiableOps http4sRangeNotSatisfiableSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #857                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sRangeNotSatisfiableSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$RangeNotSatisfiableOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$ExpectationFailedOps http4sExpectationFailedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #863                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sExpectationFailedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$ExpectationFailedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$MisdirectedRequestOps http4sMisdirectedRequestSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #869                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sMisdirectedRequestSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$MisdirectedRequestOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$UnprocessableEntityOps http4sUnprocessableEntitySyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #875                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sUnprocessableEntitySyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$UnprocessableEntityOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$LockedOps http4sLockedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #881                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sLockedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$LockedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$FailedDependencyOps http4sFailedDependencySyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #887                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sFailedDependencySyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$FailedDependencyOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$TooEarlyOps http4sTooEarlySyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #893                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sTooEarlySyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$TooEarlyOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$UpgradeRequiredOps http4sUpgradeRequiredSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #899                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sUpgradeRequiredSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$UpgradeRequiredOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$PreconditionRequiredOps http4sPreconditionRequiredSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #905                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sPreconditionRequiredSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$PreconditionRequiredOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$TooManyRequestsOps http4sTooManyRequestsSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #911                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sTooManyRequestsSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$TooManyRequestsOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$RequestHeaderFieldsTooLargeOps http4sRequestHeaderFieldsTooLargeSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #917                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sRequestHeaderFieldsTooLargeSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$RequestHeaderFieldsTooLargeOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$UnavailableForLegalReasonsOps http4sUnavailableForLegalReasonsSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #923                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sUnavailableForLegalReasonsSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$UnavailableForLegalReasonsOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$InternalServerErrorOps http4sInternalServerErrorSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #929                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sInternalServerErrorSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$InternalServerErrorOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$NotImplementedOps http4sNotImplementedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #935                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sNotImplementedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$NotImplementedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$BadGatewayOps http4sBadGatewaySyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #941                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sBadGatewaySyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$BadGatewayOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$ServiceUnavailableOps http4sServiceUnavailableSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #947                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sServiceUnavailableSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$ServiceUnavailableOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$GatewayTimeoutOps http4sGatewayTimeoutSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #953                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sGatewayTimeoutSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$GatewayTimeoutOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$HttpVersionNotSupportedOps http4sHttpVersionNotSupportedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #959                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sHttpVersionNotSupportedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$HttpVersionNotSupportedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$VariantAlsoNegotiatesOps http4sVariantAlsoNegotiatesSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #965                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sVariantAlsoNegotiatesSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$VariantAlsoNegotiatesOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$InsufficientStorageOps http4sInsufficientStorageSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #971                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sInsufficientStorageSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$InsufficientStorageOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$LoopDetectedOps http4sLoopDetectedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #977                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sLoopDetectedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$LoopDetectedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$NotExtendedOps http4sNotExtendedSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #983                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sNotExtendedSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$NotExtendedOps;
+       5: areturn
+
+  public org.http4s.dsl.impl.Responses$NetworkAuthenticationRequiredOps http4sNetworkAuthenticationRequiredSyntax(org.http4s.Status);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: invokestatic  #989                // InterfaceMethod org/http4s/dsl/impl/Responses.http4sNetworkAuthenticationRequiredSyntax$:(Lorg/http4s/dsl/impl/Responses;Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$NetworkAuthenticationRequiredOps;
+       5: areturn
+
+  public org.http4s.Uri$Path$ Path();
+    Code:
+       0: aload_0
+       1: getfield      #992                // Field Path:Lorg/http4s/Uri$Path$;
+       4: areturn
+
+  public org.http4s.Uri$Path Root();
+    Code:
+       0: aload_0
+       1: getfield      #995                // Field Root:Lorg/http4s/Uri$Path;
+       4: areturn
+
+  public org.http4s.dsl.impl.$div$ $div();
+    Code:
+       0: aload_0
+       1: getfield      #998                // Field $div:Lorg/http4s/dsl/impl/$div$;
+       4: areturn
+
+  public org.http4s.dsl.impl.$colon$qmark$ $colon$qmark();
+    Code:
+       0: aload_0
+       1: getfield      #1001               // Field $colon$qmark:Lorg/http4s/dsl/impl/$colon$qmark$;
+       4: areturn
+
+  public org.http4s.dsl.impl.$tilde$ $tilde();
+    Code:
+       0: aload_0
+       1: getfield      #1004               // Field $tilde:Lorg/http4s/dsl/impl/$tilde$;
+       4: areturn
+
+  public org.http4s.dsl.impl.$minus$greater$ $minus$greater();
+    Code:
+       0: aload_0
+       1: getfield      #1007               // Field $minus$greater:Lorg/http4s/dsl/impl/$minus$greater$;
+       4: areturn
+
+  public org.http4s.dsl.impl.$minus$greater$greater$ $minus$greater$greater();
+    Code:
+       0: aload_0
+       1: getfield      #1010               // Field $minus$greater$greater:Lorg/http4s/dsl/impl/$minus$greater$greater$;
+       4: areturn
+
+  public org.http4s.dsl.impl.$div$colon$ $div$colon();
+    Code:
+       0: aload_0
+       1: getfield      #1013               // Field $div$colon:Lorg/http4s/dsl/impl/$div$colon$;
+       4: areturn
+
+  public org.http4s.dsl.impl.$plus$amp$ $plus$amp();
+    Code:
+       0: aload_0
+       1: getfield      #1016               // Field $plus$amp:Lorg/http4s/dsl/impl/$plus$amp$;
+       4: areturn
+
+  public org.http4s.dsl.impl.$minus$greater$ $u2192();
+    Code:
+       0: aload_0
+       1: getfield      #1018               // Field $u2192:Lorg/http4s/dsl/impl/$minus$greater$;
+       4: areturn
+
+  public org.http4s.dsl.impl.IntVar$ IntVar();
+    Code:
+       0: aload_0
+       1: getfield      #1021               // Field IntVar:Lorg/http4s/dsl/impl/IntVar$;
+       4: areturn
+
+  public org.http4s.dsl.impl.LongVar$ LongVar();
+    Code:
+       0: aload_0
+       1: getfield      #1024               // Field LongVar:Lorg/http4s/dsl/impl/LongVar$;
+       4: areturn
+
+  public org.http4s.dsl.impl.UUIDVar$ UUIDVar();
+    Code:
+       0: aload_0
+       1: getfield      #1027               // Field UUIDVar:Lorg/http4s/dsl/impl/UUIDVar$;
+       4: areturn
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$Path_$eq(org.http4s.Uri$Path$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #992                // Field Path:Lorg/http4s/Uri$Path$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$Root_$eq(org.http4s.Uri$Path);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #995                // Field Root:Lorg/http4s/Uri$Path;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$$div_$eq(org.http4s.dsl.impl.$div$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #998                // Field $div:Lorg/http4s/dsl/impl/$div$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$$colon$qmark_$eq(org.http4s.dsl.impl.$colon$qmark$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1001               // Field $colon$qmark:Lorg/http4s/dsl/impl/$colon$qmark$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$$tilde_$eq(org.http4s.dsl.impl.$tilde$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1004               // Field $tilde:Lorg/http4s/dsl/impl/$tilde$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$$minus$greater_$eq(org.http4s.dsl.impl.$minus$greater$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1007               // Field $minus$greater:Lorg/http4s/dsl/impl/$minus$greater$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$$minus$greater$greater_$eq(org.http4s.dsl.impl.$minus$greater$greater$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1010               // Field $minus$greater$greater:Lorg/http4s/dsl/impl/$minus$greater$greater$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$$div$colon_$eq(org.http4s.dsl.impl.$div$colon$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1013               // Field $div$colon:Lorg/http4s/dsl/impl/$div$colon$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$$plus$amp_$eq(org.http4s.dsl.impl.$plus$amp$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1016               // Field $plus$amp:Lorg/http4s/dsl/impl/$plus$amp$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$$u2192_$eq(org.http4s.dsl.impl.$minus$greater$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1018               // Field $u2192:Lorg/http4s/dsl/impl/$minus$greater$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$IntVar_$eq(org.http4s.dsl.impl.IntVar$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1021               // Field IntVar:Lorg/http4s/dsl/impl/IntVar$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$LongVar_$eq(org.http4s.dsl.impl.LongVar$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1024               // Field LongVar:Lorg/http4s/dsl/impl/LongVar$;
+       5: return
+
+  public void org$http4s$dsl$Http4sDsl2$_setter_$UUIDVar_$eq(org.http4s.dsl.impl.UUIDVar$);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1027               // Field UUIDVar:Lorg/http4s/dsl/impl/UUIDVar$;
+       5: return
+
+  public cats.arrow.FunctionK liftG();
+    Code:
+       0: aload_0
+       1: getfield      #1055               // Field liftG:Lcats/arrow/FunctionK;
+       4: areturn
+
+  public void org$http4s$dsl$Http4sDsl$_setter_$liftG_$eq(cats.arrow.FunctionK);
+    Code:
+       0: aload_0
+       1: aload_1
+       2: putfield      #1055               // Field liftG:Lcats/arrow/FunctionK;
+       5: return
+
+  public final <A extends com.scala_training.core.domain.model.CarCore> org.http4s.EntityEncoder<F, com.scala_training.core.http.api.car.post.CreateCarResponse<A>> createCarRespEncoder();
+    Code:
+       0: getstatic     #1065               // Field org/http4s/circe/package$.MODULE$:Lorg/http4s/circe/package$;
+       3: getstatic     #1070               // Field io/circe/Encoder$.MODULE$:Lio/circe/Encoder$;
+       6: getstatic     #1075               // Field io/circe/export/Exported$.MODULE$:Lio/circe/export/Exported$;
+       9: getstatic     #1080               // Field io/circe/derivation/ConfiguredEncoder$.MODULE$:Lio/circe/derivation/ConfiguredEncoder$;
+      12: invokedynamic #1100,  0           // InvokeDynamic #0:apply:()Lscala/Function0;
+      17: ldc_w         #1102               // String id
+      20: astore_1
+      21: getstatic     #1107               // Field scala/package$.MODULE$:Lscala/package$;
+      24: invokevirtual #1111               // Method scala/package$.Nil:()Lscala/collection/immutable/Nil$;
+      27: aload_1
+      28: invokevirtual #1117               // Method scala/collection/immutable/List.$colon$colon:(Ljava/lang/Object;)Lscala/collection/immutable/List;
+      31: getstatic     #1122               // Field io/circe/derivation/Configuration$.MODULE$:Lio/circe/derivation/Configuration$;
+      34: invokevirtual #1126               // Method io/circe/derivation/Configuration$.default:()Lio/circe/derivation/Configuration;
+      37: invokevirtual #1130               // Method io/circe/derivation/ConfiguredEncoder$.inline$ofProduct:(Lscala/Function0;Lscala/collection/immutable/List;Lio/circe/derivation/Configuration;)Lio/circe/derivation/ConfiguredEncoder;
+      40: invokevirtual #1133               // Method io/circe/export/Exported$.apply:(Ljava/lang/Object;)Ljava/lang/Object;
+      43: checkcast     #51                 // class io/circe/Encoder
+      46: invokevirtual #1137               // Method io/circe/Encoder$.importedEncoder:(Lio/circe/Encoder;)Lio/circe/Encoder;
+      49: invokevirtual #1141               // Method org/http4s/circe/package$.jsonEncoderOf:(Lio/circe/Encoder;)Lorg/http4s/EntityEncoder;
+      52: areturn
+
+  public final <A extends com.scala_training.core.domain.model.CarCore> org.http4s.EntityEncoder<F, com.scala_training.core.http.api.car.get.GetCarByIdResponse<A>> getCarByIdRespEncoder();
+    Code:
+       0: getstatic     #1065               // Field org/http4s/circe/package$.MODULE$:Lorg/http4s/circe/package$;
+       3: getstatic     #1070               // Field io/circe/Encoder$.MODULE$:Lio/circe/Encoder$;
+       6: getstatic     #1075               // Field io/circe/export/Exported$.MODULE$:Lio/circe/export/Exported$;
+       9: getstatic     #1080               // Field io/circe/derivation/ConfiguredEncoder$.MODULE$:Lio/circe/derivation/ConfiguredEncoder$;
+      12: invokedynamic #1148,  0           // InvokeDynamic #1:apply:()Lscala/Function0;
+      17: ldc_w         #1102               // String id
+      20: astore_1
+      21: ldc_w         #1150               // String make
+      24: astore_2
+      25: ldc_w         #1152               // String model
+      28: astore_3
+      29: ldc_w         #1154               // String year
+      32: astore        4
+      34: getstatic     #1107               // Field scala/package$.MODULE$:Lscala/package$;
+      37: invokevirtual #1111               // Method scala/package$.Nil:()Lscala/collection/immutable/Nil$;
+      40: aload         4
+      42: invokevirtual #1117               // Method scala/collection/immutable/List.$colon$colon:(Ljava/lang/Object;)Lscala/collection/immutable/List;
+      45: aload_3
+      46: invokevirtual #1117               // Method scala/collection/immutable/List.$colon$colon:(Ljava/lang/Object;)Lscala/collection/immutable/List;
+      49: aload_2
+      50: invokevirtual #1117               // Method scala/collection/immutable/List.$colon$colon:(Ljava/lang/Object;)Lscala/collection/immutable/List;
+      53: aload_1
+      54: invokevirtual #1117               // Method scala/collection/immutable/List.$colon$colon:(Ljava/lang/Object;)Lscala/collection/immutable/List;
+      57: getstatic     #1122               // Field io/circe/derivation/Configuration$.MODULE$:Lio/circe/derivation/Configuration$;
+      60: invokevirtual #1126               // Method io/circe/derivation/Configuration$.default:()Lio/circe/derivation/Configuration;
+      63: invokevirtual #1130               // Method io/circe/derivation/ConfiguredEncoder$.inline$ofProduct:(Lscala/Function0;Lscala/collection/immutable/List;Lio/circe/derivation/Configuration;)Lio/circe/derivation/ConfiguredEncoder;
+      66: invokevirtual #1133               // Method io/circe/export/Exported$.apply:(Ljava/lang/Object;)Ljava/lang/Object;
+      69: checkcast     #51                 // class io/circe/Encoder
+      72: invokevirtual #1137               // Method io/circe/Encoder$.importedEncoder:(Lio/circe/Encoder;)Lio/circe/Encoder;
+      75: invokevirtual #1141               // Method org/http4s/circe/package$.jsonEncoderOf:(Lio/circe/Encoder;)Lorg/http4s/EntityEncoder;
+      78: areturn
+
+  public final <A extends com.scala_training.core.domain.model.CarCore> org.http4s.EntityEncoder<F, com.scala_training.core.http.api.car.get.GetCarsResponse<A>> getCarsRespEncoder();
+    Code:
+       0: getstatic     #1065               // Field org/http4s/circe/package$.MODULE$:Lorg/http4s/circe/package$;
+       3: getstatic     #1070               // Field io/circe/Encoder$.MODULE$:Lio/circe/Encoder$;
+       6: getstatic     #1075               // Field io/circe/export/Exported$.MODULE$:Lio/circe/export/Exported$;
+       9: getstatic     #1080               // Field io/circe/derivation/ConfiguredEncoder$.MODULE$:Lio/circe/derivation/ConfiguredEncoder$;
+      12: invokedynamic #1161,  0           // InvokeDynamic #2:apply:()Lscala/Function0;
+      17: ldc_w         #1163               // String cars
+      20: astore_1
+      21: getstatic     #1107               // Field scala/package$.MODULE$:Lscala/package$;
+      24: invokevirtual #1111               // Method scala/package$.Nil:()Lscala/collection/immutable/Nil$;
+      27: aload_1
+      28: invokevirtual #1117               // Method scala/collection/immutable/List.$colon$colon:(Ljava/lang/Object;)Lscala/collection/immutable/List;
+      31: getstatic     #1122               // Field io/circe/derivation/Configuration$.MODULE$:Lio/circe/derivation/Configuration$;
+      34: invokevirtual #1126               // Method io/circe/derivation/Configuration$.default:()Lio/circe/derivation/Configuration;
+      37: invokevirtual #1130               // Method io/circe/derivation/ConfiguredEncoder$.inline$ofProduct:(Lscala/Function0;Lscala/collection/immutable/List;Lio/circe/derivation/Configuration;)Lio/circe/derivation/ConfiguredEncoder;
+      40: invokevirtual #1133               // Method io/circe/export/Exported$.apply:(Ljava/lang/Object;)Ljava/lang/Object;
+      43: checkcast     #51                 // class io/circe/Encoder
+      46: invokevirtual #1137               // Method io/circe/Encoder$.importedEncoder:(Lio/circe/Encoder;)Lio/circe/Encoder;
+      49: invokevirtual #1141               // Method org/http4s/circe/package$.jsonEncoderOf:(Lio/circe/Encoder;)Lorg/http4s/EntityEncoder;
+      52: areturn
+
+  public <A extends com.scala_training.core.domain.model.CarCore> F handleCreateResponse(scala.util.Either<java.lang.Throwable, com.scala_training.core.persistence.command.CommandResponse<A>>);
+    Code:
+       0: aload_1
+       1: astore_2
+       2: aload_2
+       3: instanceof    #1169               // class scala/util/Right
+       6: ifeq          288
+       9: aload_2
+      10: checkcast     #1169               // class scala/util/Right
+      13: invokevirtual #1172               // Method scala/util/Right.value:()Ljava/lang/Object;
+      16: checkcast     #37                 // class com/scala_training/core/persistence/command/CommandResponse
+      19: astore_3
+      20: aload_3
+      21: astore        4
+      23: aload         4
+      25: instanceof    #43                 // class com/scala_training/core/persistence/command/CommandResponse$Success
+      28: ifeq          206
+      31: getstatic     #1175               // Field com/scala_training/core/persistence/command/CommandResponse$Success$.MODULE$:Lcom/scala_training/core/persistence/command/CommandResponse$Success$;
+      34: aload         4
+      36: checkcast     #43                 // class com/scala_training/core/persistence/command/CommandResponse$Success
+      39: invokevirtual #1179               // Method com/scala_training/core/persistence/command/CommandResponse$Success$.unapply:(Lcom/scala_training/core/persistence/command/CommandResponse$Success;)Lcom/scala_training/core/persistence/command/CommandResponse$Success;
+      42: astore        5
+      44: aload         5
+      46: invokevirtual #1183               // Method com/scala_training/core/persistence/command/CommandResponse$Success._1:()Lscala/Option;
+      49: astore        6
+      51: aload         6
+      53: instanceof    #1185               // class scala/Some
+      56: ifeq          154
+      59: aload         6
+      61: checkcast     #1185               // class scala/Some
+      64: invokevirtual #1186               // Method scala/Some.value:()Ljava/lang/Object;
+      67: checkcast     #1188               // class com/scala_training/core/domain/model/CarCore
+      70: astore        7
+      72: getstatic     #1193               // Field cats/implicits$.MODULE$:Lcats/implicits$;
+      75: getstatic     #1198               // Field org/typelevel/log4cats/Logger$.MODULE$:Lorg/typelevel/log4cats/Logger$;
+      78: aload_0
+      79: getfield      #354                // Field evidence$2:Lorg/typelevel/log4cats/Logger;
+      82: invokevirtual #1201               // Method org/typelevel/log4cats/Logger$.apply:(Lorg/typelevel/log4cats/Logger;)Lorg/typelevel/log4cats/Logger;
+      85: aload         7
+      87: invokedynamic #1211,  0           // InvokeDynamic #3:apply:(Lcom/scala_training/core/domain/model/CarCore;)Lscala/Function0;
+      92: invokeinterface #1217,  2         // InterfaceMethod org/typelevel/log4cats/Logger.info:(Lscala/Function0;)Ljava/lang/Object;
+      97: invokevirtual #1220               // Method cats/implicits$.catsSyntaxApplyOps:(Ljava/lang/Object;)Ljava/lang/Object;
+     100: astore        8
+     102: getstatic     #1225               // Field cats/syntax/ApplyOps$.MODULE$:Lcats/syntax/ApplyOps$;
+     105: aload         8
+     107: aload_0
+     108: aload_0
+     109: invokevirtual #1227               // Method Created:()Lorg/http4s/Status;
+     112: invokevirtual #1229               // Method http4sCreatedSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$CreatedOps;
+     115: getstatic     #1234               // Field com/scala_training/core/http/api/car/post/CreateCarResponse$.MODULE$:Lcom/scala_training/core/http/api/car/post/CreateCarResponse$;
+     118: invokevirtual #1237               // Method com/scala_training/core/http/api/car/post/CreateCarResponse$.given_Conversion_CommandResponse_CreateCarResponse:()Lcom/scala_training/core/http/api/car/post/CreateCarResponse$given_Conversion_CommandResponse_CreateCarResponse;
+     121: aload_3
+     122: invokevirtual #1240               // Method com/scala_training/core/http/api/car/post/CreateCarResponse$given_Conversion_CommandResponse_CreateCarResponse.apply:(Lcom/scala_training/core/persistence/command/CommandResponse;)Lcom/scala_training/core/http/api/car/post/CreateCarResponse;
+     125: getstatic     #1245               // Field scala/runtime/ScalaRunTime$.MODULE$:Lscala/runtime/ScalaRunTime$;
+     128: iconst_0
+     129: anewarray     #59                 // class org/http4s/Header$ToRaw
+     132: invokevirtual #1249               // Method scala/runtime/ScalaRunTime$.wrapRefArray:([Ljava/lang/Object;)Lscala/collection/immutable/ArraySeq;
+     135: aload_0
+     136: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     139: aload_0
+     140: invokevirtual #1251               // Method createCarRespEncoder:()Lorg/http4s/EntityEncoder;
+     143: invokevirtual #1254               // Method org/http4s/dsl/impl/Responses$CreatedOps.apply:(Ljava/lang/Object;Lscala/collection/immutable/Seq;Lcats/Applicative;Lorg/http4s/EntityEncoder;)Ljava/lang/Object;
+     146: aload_0
+     147: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     150: invokevirtual #1258               // Method cats/syntax/ApplyOps$.$times$greater$extension:(Ljava/lang/Object;Ljava/lang/Object;Lcats/Apply;)Ljava/lang/Object;
+     153: areturn
+     154: getstatic     #1263               // Field scala/None$.MODULE$:Lscala/None$;
+     157: aload         6
+     159: invokevirtual #1267               // Method java/lang/Object.equals:(Ljava/lang/Object;)Z
+     162: ifeq          206
+     165: aload_0
+     166: aload_0
+     167: invokevirtual #1269               // Method Conflict:()Lorg/http4s/Status;
+     170: invokevirtual #1271               // Method http4sConflictSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$ConflictOps;
+     173: ldc_w         #1273               // String Car creation failed
+     176: getstatic     #1245               // Field scala/runtime/ScalaRunTime$.MODULE$:Lscala/runtime/ScalaRunTime$;
+     179: iconst_0
+     180: anewarray     #59                 // class org/http4s/Header$ToRaw
+     183: invokevirtual #1249               // Method scala/runtime/ScalaRunTime$.wrapRefArray:([Ljava/lang/Object;)Lscala/collection/immutable/ArraySeq;
+     186: aload_0
+     187: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     190: getstatic     #1278               // Field org/http4s/circe/CirceEntityCodec$.MODULE$:Lorg/http4s/circe/CirceEntityCodec$;
+     193: getstatic     #1070               // Field io/circe/Encoder$.MODULE$:Lio/circe/Encoder$;
+     196: invokevirtual #1282               // Method io/circe/Encoder$.encodeString:()Lio/circe/Encoder;
+     199: invokevirtual #1285               // Method org/http4s/circe/CirceEntityCodec$.circeEntityEncoder:(Lio/circe/Encoder;)Lorg/http4s/EntityEncoder;
+     202: invokevirtual #1286               // Method org/http4s/dsl/impl/Responses$ConflictOps.apply:(Ljava/lang/Object;Lscala/collection/immutable/Seq;Lcats/Applicative;Lorg/http4s/EntityEncoder;)Ljava/lang/Object;
+     205: areturn
+     206: aload         4
+     208: instanceof    #35                 // class com/scala_training/core/persistence/command/CommandResponse$Failure
+     211: ifeq          278
+     214: getstatic     #1289               // Field com/scala_training/core/persistence/command/CommandResponse$Failure$.MODULE$:Lcom/scala_training/core/persistence/command/CommandResponse$Failure$;
+     217: aload         4
+     219: checkcast     #35                 // class com/scala_training/core/persistence/command/CommandResponse$Failure
+     222: invokevirtual #1292               // Method com/scala_training/core/persistence/command/CommandResponse$Failure$.unapply:(Lcom/scala_training/core/persistence/command/CommandResponse$Failure;)Lcom/scala_training/core/persistence/command/CommandResponse$Failure;
+     225: astore        9
+     227: aload         9
+     229: invokevirtual #1294               // Method com/scala_training/core/persistence/command/CommandResponse$Failure._1:()Ljava/lang/String;
+     232: astore        10
+     234: aload         10
+     236: astore        11
+     238: aload_0
+     239: aload_0
+     240: invokevirtual #1269               // Method Conflict:()Lorg/http4s/Status;
+     243: invokevirtual #1271               // Method http4sConflictSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$ConflictOps;
+     246: aload         11
+     248: getstatic     #1245               // Field scala/runtime/ScalaRunTime$.MODULE$:Lscala/runtime/ScalaRunTime$;
+     251: iconst_0
+     252: anewarray     #59                 // class org/http4s/Header$ToRaw
+     255: invokevirtual #1249               // Method scala/runtime/ScalaRunTime$.wrapRefArray:([Ljava/lang/Object;)Lscala/collection/immutable/ArraySeq;
+     258: aload_0
+     259: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     262: getstatic     #1278               // Field org/http4s/circe/CirceEntityCodec$.MODULE$:Lorg/http4s/circe/CirceEntityCodec$;
+     265: getstatic     #1070               // Field io/circe/Encoder$.MODULE$:Lio/circe/Encoder$;
+     268: invokevirtual #1282               // Method io/circe/Encoder$.encodeString:()Lio/circe/Encoder;
+     271: invokevirtual #1285               // Method org/http4s/circe/CirceEntityCodec$.circeEntityEncoder:(Lio/circe/Encoder;)Lorg/http4s/EntityEncoder;
+     274: invokevirtual #1286               // Method org/http4s/dsl/impl/Responses$ConflictOps.apply:(Ljava/lang/Object;Lscala/collection/immutable/Seq;Lcats/Applicative;Lorg/http4s/EntityEncoder;)Ljava/lang/Object;
+     277: areturn
+     278: new           #1296               // class scala/MatchError
+     281: dup
+     282: aload         4
+     284: invokespecial #1299               // Method scala/MatchError."<init>":(Ljava/lang/Object;)V
+     287: athrow
+     288: aload_2
+     289: instanceof    #1301               // class scala/util/Left
+     292: ifeq          365
+     295: aload_2
+     296: checkcast     #1301               // class scala/util/Left
+     299: invokevirtual #1302               // Method scala/util/Left.value:()Ljava/lang/Object;
+     302: checkcast     #457                // class java/lang/Throwable
+     305: astore        12
+     307: getstatic     #1193               // Field cats/implicits$.MODULE$:Lcats/implicits$;
+     310: getstatic     #1198               // Field org/typelevel/log4cats/Logger$.MODULE$:Lorg/typelevel/log4cats/Logger$;
+     313: aload_0
+     314: getfield      #354                // Field evidence$2:Lorg/typelevel/log4cats/Logger;
+     317: invokevirtual #1201               // Method org/typelevel/log4cats/Logger$.apply:(Lorg/typelevel/log4cats/Logger;)Lorg/typelevel/log4cats/Logger;
+     320: aload         12
+     322: invokedynamic #1310,  0           // InvokeDynamic #4:apply:(Ljava/lang/Throwable;)Lscala/Function0;
+     327: invokeinterface #1313,  2         // InterfaceMethod org/typelevel/log4cats/Logger.error:(Lscala/Function0;)Ljava/lang/Object;
+     332: invokevirtual #1220               // Method cats/implicits$.catsSyntaxApplyOps:(Ljava/lang/Object;)Ljava/lang/Object;
+     335: astore        13
+     337: getstatic     #1225               // Field cats/syntax/ApplyOps$.MODULE$:Lcats/syntax/ApplyOps$;
+     340: aload         13
+     342: aload_0
+     343: aload_0
+     344: invokevirtual #1315               // Method InternalServerError:()Lorg/http4s/Status;
+     347: invokevirtual #1317               // Method http4sInternalServerErrorSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$InternalServerErrorOps;
+     350: aload_0
+     351: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     354: invokevirtual #1320               // Method org/http4s/dsl/impl/Responses$InternalServerErrorOps.apply:(Lcats/Applicative;)Ljava/lang/Object;
+     357: aload_0
+     358: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     361: invokevirtual #1258               // Method cats/syntax/ApplyOps$.$times$greater$extension:(Ljava/lang/Object;Ljava/lang/Object;Lcats/Apply;)Ljava/lang/Object;
+     364: areturn
+     365: new           #1296               // class scala/MatchError
+     368: dup
+     369: aload_2
+     370: invokespecial #1299               // Method scala/MatchError."<init>":(Ljava/lang/Object;)V
+     373: athrow
+
+  public <A extends com.scala_training.core.domain.model.CarCore> F handleGetResponse(scala.util.Either<java.lang.Throwable, com.scala_training.core.persistence.command.CommandResponse<A>>);
+    Code:
+       0: aload_1
+       1: astore_2
+       2: aload_2
+       3: instanceof    #1169               // class scala/util/Right
+       6: ifeq          225
+       9: aload_2
+      10: checkcast     #1169               // class scala/util/Right
+      13: invokevirtual #1172               // Method scala/util/Right.value:()Ljava/lang/Object;
+      16: checkcast     #37                 // class com/scala_training/core/persistence/command/CommandResponse
+      19: astore_3
+      20: aload_3
+      21: instanceof    #43                 // class com/scala_training/core/persistence/command/CommandResponse$Success
+      24: ifeq          155
+      27: aload_3
+      28: checkcast     #43                 // class com/scala_training/core/persistence/command/CommandResponse$Success
+      31: astore        4
+      33: getstatic     #1175               // Field com/scala_training/core/persistence/command/CommandResponse$Success$.MODULE$:Lcom/scala_training/core/persistence/command/CommandResponse$Success$;
+      36: aload         4
+      38: invokevirtual #1179               // Method com/scala_training/core/persistence/command/CommandResponse$Success$.unapply:(Lcom/scala_training/core/persistence/command/CommandResponse$Success;)Lcom/scala_training/core/persistence/command/CommandResponse$Success;
+      41: astore        5
+      43: aload         5
+      45: invokevirtual #1183               // Method com/scala_training/core/persistence/command/CommandResponse$Success._1:()Lscala/Option;
+      48: astore        6
+      50: aload         6
+      52: instanceof    #1185               // class scala/Some
+      55: ifeq          103
+      58: aload         4
+      60: astore        7
+      62: aload_0
+      63: aload_0
+      64: invokevirtual #1336               // Method Ok:()Lorg/http4s/Status;
+      67: invokevirtual #1338               // Method http4sOkSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$OkOps;
+      70: getstatic     #1343               // Field com/scala_training/core/http/api/car/get/GetCarByIdResponse$.MODULE$:Lcom/scala_training/core/http/api/car/get/GetCarByIdResponse$;
+      73: invokevirtual #1346               // Method com/scala_training/core/http/api/car/get/GetCarByIdResponse$.given_Conversion_CommandResponse_GetCarByIdResponse:()Lcom/scala_training/core/http/api/car/get/GetCarByIdResponse$given_Conversion_CommandResponse_GetCarByIdResponse;
+      76: aload         7
+      78: invokevirtual #1349               // Method com/scala_training/core/http/api/car/get/GetCarByIdResponse$given_Conversion_CommandResponse_GetCarByIdResponse.apply:(Lcom/scala_training/core/persistence/command/CommandResponse;)Lcom/scala_training/core/http/api/car/get/GetCarByIdResponse;
+      81: getstatic     #1245               // Field scala/runtime/ScalaRunTime$.MODULE$:Lscala/runtime/ScalaRunTime$;
+      84: iconst_0
+      85: anewarray     #59                 // class org/http4s/Header$ToRaw
+      88: invokevirtual #1249               // Method scala/runtime/ScalaRunTime$.wrapRefArray:([Ljava/lang/Object;)Lscala/collection/immutable/ArraySeq;
+      91: aload_0
+      92: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+      95: aload_0
+      96: invokevirtual #1351               // Method getCarByIdRespEncoder:()Lorg/http4s/EntityEncoder;
+      99: invokevirtual #1352               // Method org/http4s/dsl/impl/Responses$OkOps.apply:(Ljava/lang/Object;Lscala/collection/immutable/Seq;Lcats/Applicative;Lorg/http4s/EntityEncoder;)Ljava/lang/Object;
+     102: areturn
+     103: getstatic     #1263               // Field scala/None$.MODULE$:Lscala/None$;
+     106: aload         6
+     108: invokevirtual #1267               // Method java/lang/Object.equals:(Ljava/lang/Object;)Z
+     111: ifeq          155
+     114: aload_0
+     115: aload_0
+     116: invokevirtual #1354               // Method NotFound:()Lorg/http4s/Status;
+     119: invokevirtual #1356               // Method http4sNotFoundSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$NotFoundOps;
+     122: ldc_w         #1358               // String Car not found
+     125: getstatic     #1245               // Field scala/runtime/ScalaRunTime$.MODULE$:Lscala/runtime/ScalaRunTime$;
+     128: iconst_0
+     129: anewarray     #59                 // class org/http4s/Header$ToRaw
+     132: invokevirtual #1249               // Method scala/runtime/ScalaRunTime$.wrapRefArray:([Ljava/lang/Object;)Lscala/collection/immutable/ArraySeq;
+     135: aload_0
+     136: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     139: getstatic     #1278               // Field org/http4s/circe/CirceEntityCodec$.MODULE$:Lorg/http4s/circe/CirceEntityCodec$;
+     142: getstatic     #1070               // Field io/circe/Encoder$.MODULE$:Lio/circe/Encoder$;
+     145: invokevirtual #1282               // Method io/circe/Encoder$.encodeString:()Lio/circe/Encoder;
+     148: invokevirtual #1285               // Method org/http4s/circe/CirceEntityCodec$.circeEntityEncoder:(Lio/circe/Encoder;)Lorg/http4s/EntityEncoder;
+     151: invokevirtual #1359               // Method org/http4s/dsl/impl/Responses$NotFoundOps.apply:(Ljava/lang/Object;Lscala/collection/immutable/Seq;Lcats/Applicative;Lorg/http4s/EntityEncoder;)Ljava/lang/Object;
+     154: areturn
+     155: aload_3
+     156: instanceof    #35                 // class com/scala_training/core/persistence/command/CommandResponse$Failure
+     159: ifeq          225
+     162: getstatic     #1289               // Field com/scala_training/core/persistence/command/CommandResponse$Failure$.MODULE$:Lcom/scala_training/core/persistence/command/CommandResponse$Failure$;
+     165: aload_3
+     166: checkcast     #35                 // class com/scala_training/core/persistence/command/CommandResponse$Failure
+     169: invokevirtual #1292               // Method com/scala_training/core/persistence/command/CommandResponse$Failure$.unapply:(Lcom/scala_training/core/persistence/command/CommandResponse$Failure;)Lcom/scala_training/core/persistence/command/CommandResponse$Failure;
+     172: astore        8
+     174: aload         8
+     176: invokevirtual #1294               // Method com/scala_training/core/persistence/command/CommandResponse$Failure._1:()Ljava/lang/String;
+     179: astore        9
+     181: aload         9
+     183: astore        10
+     185: aload_0
+     186: aload_0
+     187: invokevirtual #1354               // Method NotFound:()Lorg/http4s/Status;
+     190: invokevirtual #1356               // Method http4sNotFoundSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$NotFoundOps;
+     193: aload         10
+     195: getstatic     #1245               // Field scala/runtime/ScalaRunTime$.MODULE$:Lscala/runtime/ScalaRunTime$;
+     198: iconst_0
+     199: anewarray     #59                 // class org/http4s/Header$ToRaw
+     202: invokevirtual #1249               // Method scala/runtime/ScalaRunTime$.wrapRefArray:([Ljava/lang/Object;)Lscala/collection/immutable/ArraySeq;
+     205: aload_0
+     206: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     209: getstatic     #1278               // Field org/http4s/circe/CirceEntityCodec$.MODULE$:Lorg/http4s/circe/CirceEntityCodec$;
+     212: getstatic     #1070               // Field io/circe/Encoder$.MODULE$:Lio/circe/Encoder$;
+     215: invokevirtual #1282               // Method io/circe/Encoder$.encodeString:()Lio/circe/Encoder;
+     218: invokevirtual #1285               // Method org/http4s/circe/CirceEntityCodec$.circeEntityEncoder:(Lio/circe/Encoder;)Lorg/http4s/EntityEncoder;
+     221: invokevirtual #1359               // Method org/http4s/dsl/impl/Responses$NotFoundOps.apply:(Ljava/lang/Object;Lscala/collection/immutable/Seq;Lcats/Applicative;Lorg/http4s/EntityEncoder;)Ljava/lang/Object;
+     224: areturn
+     225: aload_2
+     226: instanceof    #1301               // class scala/util/Left
+     229: ifeq          302
+     232: aload_2
+     233: checkcast     #1301               // class scala/util/Left
+     236: invokevirtual #1302               // Method scala/util/Left.value:()Ljava/lang/Object;
+     239: checkcast     #457                // class java/lang/Throwable
+     242: astore        11
+     244: getstatic     #1193               // Field cats/implicits$.MODULE$:Lcats/implicits$;
+     247: getstatic     #1198               // Field org/typelevel/log4cats/Logger$.MODULE$:Lorg/typelevel/log4cats/Logger$;
+     250: aload_0
+     251: getfield      #354                // Field evidence$2:Lorg/typelevel/log4cats/Logger;
+     254: invokevirtual #1201               // Method org/typelevel/log4cats/Logger$.apply:(Lorg/typelevel/log4cats/Logger;)Lorg/typelevel/log4cats/Logger;
+     257: aload         11
+     259: invokedynamic #1364,  0           // InvokeDynamic #5:apply:(Ljava/lang/Throwable;)Lscala/Function0;
+     264: invokeinterface #1313,  2         // InterfaceMethod org/typelevel/log4cats/Logger.error:(Lscala/Function0;)Ljava/lang/Object;
+     269: invokevirtual #1220               // Method cats/implicits$.catsSyntaxApplyOps:(Ljava/lang/Object;)Ljava/lang/Object;
+     272: astore        12
+     274: getstatic     #1225               // Field cats/syntax/ApplyOps$.MODULE$:Lcats/syntax/ApplyOps$;
+     277: aload         12
+     279: aload_0
+     280: aload_0
+     281: invokevirtual #1315               // Method InternalServerError:()Lorg/http4s/Status;
+     284: invokevirtual #1317               // Method http4sInternalServerErrorSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$InternalServerErrorOps;
+     287: aload_0
+     288: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     291: invokevirtual #1320               // Method org/http4s/dsl/impl/Responses$InternalServerErrorOps.apply:(Lcats/Applicative;)Ljava/lang/Object;
+     294: aload_0
+     295: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     298: invokevirtual #1258               // Method cats/syntax/ApplyOps$.$times$greater$extension:(Ljava/lang/Object;Ljava/lang/Object;Lcats/Apply;)Ljava/lang/Object;
+     301: areturn
+     302: new           #1296               // class scala/MatchError
+     305: dup
+     306: aload_2
+     307: invokespecial #1299               // Method scala/MatchError."<init>":(Ljava/lang/Object;)V
+     310: athrow
+
+  public <A extends com.scala_training.core.domain.model.CarCore> F handleGetAllResponse(scala.util.Either<java.lang.Throwable, com.scala_training.core.persistence.command.CommandResponse<scala.collection.immutable.Map<java.util.UUID, A>>>);
+    Code:
+       0: aload_1
+       1: astore_2
+       2: aload_2
+       3: instanceof    #1169               // class scala/util/Right
+       6: ifeq          60
+       9: aload_2
+      10: checkcast     #1169               // class scala/util/Right
+      13: invokevirtual #1172               // Method scala/util/Right.value:()Ljava/lang/Object;
+      16: checkcast     #37                 // class com/scala_training/core/persistence/command/CommandResponse
+      19: astore_3
+      20: aload_0
+      21: aload_0
+      22: invokevirtual #1336               // Method Ok:()Lorg/http4s/Status;
+      25: invokevirtual #1338               // Method http4sOkSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$OkOps;
+      28: getstatic     #1373               // Field com/scala_training/core/http/api/car/get/GetCarsResponse$.MODULE$:Lcom/scala_training/core/http/api/car/get/GetCarsResponse$;
+      31: invokevirtual #1376               // Method com/scala_training/core/http/api/car/get/GetCarsResponse$.given_Conversion_CommandResponse_GetCarsResponse:()Lcom/scala_training/core/http/api/car/get/GetCarsResponse$given_Conversion_CommandResponse_GetCarsResponse;
+      34: aload_3
+      35: invokevirtual #1379               // Method com/scala_training/core/http/api/car/get/GetCarsResponse$given_Conversion_CommandResponse_GetCarsResponse.apply:(Lcom/scala_training/core/persistence/command/CommandResponse;)Lcom/scala_training/core/http/api/car/get/GetCarsResponse;
+      38: getstatic     #1245               // Field scala/runtime/ScalaRunTime$.MODULE$:Lscala/runtime/ScalaRunTime$;
+      41: iconst_0
+      42: anewarray     #59                 // class org/http4s/Header$ToRaw
+      45: invokevirtual #1249               // Method scala/runtime/ScalaRunTime$.wrapRefArray:([Ljava/lang/Object;)Lscala/collection/immutable/ArraySeq;
+      48: aload_0
+      49: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+      52: aload_0
+      53: invokevirtual #1381               // Method getCarsRespEncoder:()Lorg/http4s/EntityEncoder;
+      56: invokevirtual #1352               // Method org/http4s/dsl/impl/Responses$OkOps.apply:(Ljava/lang/Object;Lscala/collection/immutable/Seq;Lcats/Applicative;Lorg/http4s/EntityEncoder;)Ljava/lang/Object;
+      59: areturn
+      60: aload_2
+      61: instanceof    #1301               // class scala/util/Left
+      64: ifeq          137
+      67: aload_2
+      68: checkcast     #1301               // class scala/util/Left
+      71: invokevirtual #1302               // Method scala/util/Left.value:()Ljava/lang/Object;
+      74: checkcast     #457                // class java/lang/Throwable
+      77: astore        4
+      79: getstatic     #1193               // Field cats/implicits$.MODULE$:Lcats/implicits$;
+      82: getstatic     #1198               // Field org/typelevel/log4cats/Logger$.MODULE$:Lorg/typelevel/log4cats/Logger$;
+      85: aload_0
+      86: getfield      #354                // Field evidence$2:Lorg/typelevel/log4cats/Logger;
+      89: invokevirtual #1201               // Method org/typelevel/log4cats/Logger$.apply:(Lorg/typelevel/log4cats/Logger;)Lorg/typelevel/log4cats/Logger;
+      92: aload         4
+      94: invokedynamic #1386,  0           // InvokeDynamic #6:apply:(Ljava/lang/Throwable;)Lscala/Function0;
+      99: invokeinterface #1313,  2         // InterfaceMethod org/typelevel/log4cats/Logger.error:(Lscala/Function0;)Ljava/lang/Object;
+     104: invokevirtual #1220               // Method cats/implicits$.catsSyntaxApplyOps:(Ljava/lang/Object;)Ljava/lang/Object;
+     107: astore        5
+     109: getstatic     #1225               // Field cats/syntax/ApplyOps$.MODULE$:Lcats/syntax/ApplyOps$;
+     112: aload         5
+     114: aload_0
+     115: aload_0
+     116: invokevirtual #1315               // Method InternalServerError:()Lorg/http4s/Status;
+     119: invokevirtual #1317               // Method http4sInternalServerErrorSyntax:(Lorg/http4s/Status;)Lorg/http4s/dsl/impl/Responses$InternalServerErrorOps;
+     122: aload_0
+     123: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     126: invokevirtual #1320               // Method org/http4s/dsl/impl/Responses$InternalServerErrorOps.apply:(Lcats/Applicative;)Ljava/lang/Object;
+     129: aload_0
+     130: getfield      #352                // Field evidence$1:Lcats/effect/kernel/GenConcurrent;
+     133: invokevirtual #1258               // Method cats/syntax/ApplyOps$.$times$greater$extension:(Ljava/lang/Object;Ljava/lang/Object;Lcats/Apply;)Ljava/lang/Object;
+     136: areturn
+     137: new           #1296               // class scala/MatchError
+     140: dup
+     141: aload_2
+     142: invokespecial #1299               // Method scala/MatchError."<init>":(Ljava/lang/Object;)V
+     145: athrow
+}

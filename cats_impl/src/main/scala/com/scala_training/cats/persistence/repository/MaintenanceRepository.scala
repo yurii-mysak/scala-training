@@ -8,6 +8,7 @@ import com.scala_training.core.persistence.command.CommandResponse
 import doobie.util.transactor.Transactor
 import doobie.implicits.*
 import com.scala_training.core.domain.adt.MaintenanceStatus.*
+import com.scala_training.core.domain.adt.MaintenanceStatus.given
 import doobie.postgres.implicits.*
 import org.typelevel.log4cats.{Logger, LoggerFactory}
 

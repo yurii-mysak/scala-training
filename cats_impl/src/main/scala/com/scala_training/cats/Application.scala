@@ -4,7 +4,7 @@ import cats.effect.{Async, ExitCode, IO, IOApp, Resource}
 import cats.implicits.*
 import com.comcast.ip4s.*
 import com.scala_training.cats.config.Loader
-import com.scala_training.cats.http.routes.Routes
+import com.scala_training.cats.http.routes.{Routes, StreamingRoutes}
 import com.scala_training.cats.persistence.db.FlywayMigrator
 import com.scala_training.cats.persistence.repository.{CarRepository, MaintenanceRepository}
 import doobie.hikari.HikariTransactor
@@ -53,8 +53,8 @@ object Application extends IOApp {
     maintenanceRepo: MaintenanceRepository[F] = new MaintenanceRepository[F](xa)
     carRoutes                                 = Routes.carRoutes[F](carRepo)
     maintenanceRoutes                         = Routes.maintenanceRoutes[F](maintenanceRepo)
-    httpAppRoutes                             = carRoutes <+> maintenanceRoutes
-    // NOTE: really crazy httpapp definition with cors, not sure how to work around?
+    streamingRoutes                           = StreamingRoutes[F](carRepo)
+    httpAppRoutes                             = carRoutes <+> maintenanceRoutes <+> streamingRoutes
     httpApp                                  <- Resource.eval(CORS.policy.withAllowOriginAll.apply(httpAppRoutes.orNotFound))
     server                                   <- EmberServerBuilder
                                                   .default[F]

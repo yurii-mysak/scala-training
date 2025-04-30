@@ -16,6 +16,8 @@ class CarRoutes[F[_]: {Concurrent, Logger}](
   responseHandler: handlers.CarResponseHandler[F]
 ) extends Http4sDsl[F] {
   import io.circe.generic.auto.*
+  import com.scala_training.core.http.codec.YearCodec.*
+  import com.scala_training.core.http.codec.YearCodec.given
 
   given createCarReqDecoder: EntityDecoder[F, CreateCarRequest] = jsonOf[F, CreateCarRequest]
 
