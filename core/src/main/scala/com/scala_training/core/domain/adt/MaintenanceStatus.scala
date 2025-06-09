@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.annotation.{JsonDeserialize, JsonSerialize
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
 import doobie.Meta
+import io.circe.{Decoder, Encoder}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 @JsonSerialize(`using` = classOf[MaintenanceStatusJsonSerializer])
 @JsonDeserialize(`using` = classOf[MaintenanceStatusJsonDeserializer])
@@ -59,6 +61,10 @@ object MaintenanceStatus {
     .getOrElse(
       throw new IllegalArgumentException(s"Invalid maintenance status: $str")
     )
+
+  given Encoder[MaintenanceStatus] = deriveEncoder
+
+  given Decoder[MaintenanceStatus] = deriveDecoder
 }
 
 class MaintenanceStatusJsonSerializer extends StdSerializer[MaintenanceStatus](classOf[MaintenanceStatus]) {

@@ -12,6 +12,8 @@ import com.scala_training.akka.persistence.event.car.Event
 import com.scala_training.akka.persistence.model.State
 import com.scala_training.core.domain.model.CarCore
 import com.scala_training.core.persistence.command.CommandResponse
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder}
 
 import java.time.{LocalDateTime, Year}
 
@@ -72,4 +74,7 @@ object Car {
       case Deleted(_)   => State(None)
     }
   }
+  given Encoder[Car]                                                   = deriveEncoder
+
+  given Decoder[Car] = deriveDecoder
 }

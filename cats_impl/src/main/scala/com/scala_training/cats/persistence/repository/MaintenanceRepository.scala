@@ -9,6 +9,9 @@ import doobie.util.transactor.Transactor
 import doobie.implicits.*
 import com.scala_training.core.domain.adt.MaintenanceStatus.*
 import com.scala_training.core.domain.adt.MaintenanceStatus.given
+import com.scala_training.kafka.client.KafkaClient
+import com.scala_training.kafka.model.MaintenanceEvent
+import com.scala_training.kafka.model.MaintenanceEvent.given
 import doobie.postgres.implicits.*
 import org.typelevel.log4cats.{Logger, LoggerFactory}
 
@@ -22,13 +25,17 @@ trait MaintenanceRepositoryAPI[F[_]] {
   def schedule(id: UUID, scheduledDate: LocalDateTime): F[CommandResponse[Maintenance]]
 }
 
-class MaintenanceRepository[F[_]: {Concurrent, LoggerFactory}](xa: Transactor[F]) extends MaintenanceRepositoryAPI[F] {
+class MaintenanceRepository[F[_]: {Concurrent, LoggerFactory}](
+  xa: Transactor[F],
+  kafkaClient: KafkaClient[F],
+  topic: String
+) extends MaintenanceRepositoryAPI[F] {
   given logger: Logger[F] = LoggerFactory[F].getLogger
 
-  override def create(maintenance: Maintenance): F[CommandResponse[Maintenance]] =
-    Logger[F].info(s"Creating maintenance with ID: ${maintenance.id}") *> {
-      val maintenanceTypes = maintenance.maintenanceTypes.map(_.id).toArray
-      sql"""
+  override def create(maintenance: Maintenance): F[CommandResponse[Maintenance]] = (for {
+    _               <- Logger[F].info(s"Creating maintenance with ID: ${maintenance.id}")
+    maintenanceTypes = maintenance.maintenanceTypes.map(_.id).toArray
+    _               <- sql"""
         INSERT INTO maintenances (
           id, car_id, description, maintenance_types, scheduled_date,
           status, created_at, updated_at
@@ -38,19 +45,18 @@ class MaintenanceRepository[F[_]: {Concurrent, LoggerFactory}](xa: Transactor[F]
           $maintenanceTypes, ${maintenance.scheduledDate},
           ${maintenance.status}, ${maintenance.createdAt}, ${maintenance.updatedAt}
         )
-      """.update.run
-        .transact(xa)
-        .attempt
-        .flatTap {
-          case Right(_) =>
-            Logger[F].info(s"Successfully created maintenance ${maintenance.id}")
-          case Left(e)  =>
-            Logger[F].error(s"Failed to create maintenance ${maintenance.id}: ${e.getMessage}")
-        }
-        .map {
-          case Right(_) => CommandResponse.Success(Some(maintenance))
-          case Left(e)  => CommandResponse.Failure(e.getMessage)
-        }
+      """.update.run.transact(xa)
+    _               <- kafkaClient.produce(topic, MaintenanceEvent.MaintenanceCreated(maintenance)).compile.drain
+  } yield maintenance).attempt.attempt
+    .flatTap {
+      case Right(_) =>
+        Logger[F].info(s"Successfully created maintenance ${maintenance.id}")
+      case Left(e)  =>
+        Logger[F].error(s"Failed to create maintenance ${maintenance.id}: ${e.getMessage}")
+    }
+    .map {
+      case Right(_) => CommandResponse.Success(Some(maintenance))
+      case Left(e)  => CommandResponse.Failure(e.getMessage)
     }
 
   override def get(id: UUID): F[CommandResponse[Maintenance]] = Logger[F].info(s"Fetching maintenance with ID: $id") *>

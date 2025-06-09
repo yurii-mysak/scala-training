@@ -10,7 +10,7 @@ import org.typelevel.log4cats.Logger
 import cats.effect.*
 import cats.syntax.all.*
 
-class HttpErrorHandler[F[_]: Concurrent: Logger] extends Http4sDsl[F] {
+class HttpErrorHandler[F[_]: {Concurrent, Logger}] extends Http4sDsl[F] {
   import AppError.*
 
   def handleError(message: String)(error: Throwable): F[Response[F]] = for {

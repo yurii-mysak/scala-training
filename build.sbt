@@ -20,9 +20,12 @@ lazy val catsEffectVersion               = "3.6.1"
 lazy val log4catsVersion                 = "2.7.0"
 lazy val pureConfigVersion               = "0.17.6"    // Scala 3 compatible
 lazy val jwtScalaVersion                 = "10.0.4"
+lazy val elastic4sVersion                = "8.18.0"    // for ES 8.x
+lazy val fs2KafkaVer                     = "3.7.0"     // for Scala 3
+lazy val fs2InteropVer                   = "3.12.0"    // for Scala 3
 
 lazy val root = (project in file("."))
-  .aggregate(core, akka_impl, cats_impl)
+  .aggregate(core, kafka, akka_impl, cats_impl)
   .settings(
     name := "scala-training",
     scalacOptions ++= Seq(
@@ -44,15 +47,16 @@ lazy val core = (project in file("core"))
     resolvers += "Akka library repository".at("https://repo.akka.io/maven"),
     libraryDependencies ++= Seq(
       // Scala 3 dependencies
-      "io.circe"          %% "circe-core"                 % circeVersion,
-      "io.circe"          %% "circe-generic"              % circeVersion,
-      "io.circe"          %% "circe-parser"               % circeVersion,
-      "org.typelevel"     %% "cats-core"                  % "2.13.0",
-      "com.typesafe.akka" %% "akka-serialization-jackson" % akkaVersion,
-      "org.tpolecat"      %% "doobie-core"                % doobieVersion,
-      "org.tpolecat"      %% "doobie-postgres"            % doobieVersion,
-      "org.scalatest"     %% "scalatest"                  % scalaTestVersion % Test,
-      "org.scalacheck"    %% "scalacheck"                 % "1.18.1"         % Test,
+      "io.circe"              %% "circe-core"                 % circeVersion,
+      "io.circe"              %% "circe-generic"              % circeVersion,
+      "io.circe"              %% "circe-parser"               % circeVersion,
+      "org.typelevel"         %% "cats-core"                  % "2.13.0",
+      "com.typesafe.akka"     %% "akka-serialization-jackson" % akkaVersion,
+      "org.tpolecat"          %% "doobie-core"                % doobieVersion,
+      "org.tpolecat"          %% "doobie-postgres"            % doobieVersion,
+      "com.github.pureconfig" %% "pureconfig-core"            % "0.17.8",
+      "org.scalatest"         %% "scalatest"                  % scalaTestVersion % Test,
+      "org.scalacheck"        %% "scalacheck"                 % "1.18.1"         % Test,
 
       // Scala 2.13 dependency with exclusions
       ("io.circe" %% "circe-generic-extras" % circeGenericExtrasVersion)
@@ -64,17 +68,17 @@ lazy val core = (project in file("core"))
   )
 
 lazy val akka_impl = (project in file("akka_impl"))
-  .dependsOn(core)
+  .dependsOn(core, kafka)
   .settings(
     name                := "akka_impl",
     Compile / mainClass := Some("com.scala_training.akka_impl.Application"),
     resolvers += "Akka library repository".at("https://repo.akka.io/maven"),
     libraryDependencies ++= Seq(
-      "org.typelevel"      %% "cats-effect"                % catsEffectVersion,
-      "com.typesafe.akka"  %% "akka-stream"                % akkaVersion,
-      "com.typesafe.akka"  %% "akka-http"                  % akkaHttpVersion,
-      "com.typesafe.akka"  %% "akka-http-testkit"          % akkaHttpVersion,
-      ("de.heikoseeberger" %% "akka-http-circe"            % akkaHttpCirceVersion)
+      "org.typelevel"         %% "cats-effect"                % catsEffectVersion,
+      "com.typesafe.akka"     %% "akka-stream"                % akkaVersion,
+      "com.typesafe.akka"     %% "akka-http"                  % akkaHttpVersion,
+      "com.typesafe.akka"     %% "akka-http-testkit"          % akkaHttpVersion,
+      ("de.heikoseeberger"    %% "akka-http-circe"            % akkaHttpCirceVersion)
         .cross(CrossVersion.for3Use2_13)
         .exclude(
           "io.circe",
@@ -92,18 +96,22 @@ lazy val akka_impl = (project in file("akka_impl"))
         .exclude("com.typesafe.akka", "akka-http-core_2.13")
         .exclude("com.typesafe.akka", "akka-http_2.13")
         .exclude("com.typesafe.akka", "akka-http_2.13"),
-      "com.typesafe.akka"  %% "akka-testkit"               % akkaVersion,
-      "com.typesafe.akka"  %% "akka-cluster-tools"         % akkaVersion,
-      "com.typesafe.akka"  %% "akka-persistence"           % akkaVersion,
-      "com.typesafe.akka"  %% "akka-persistence-typed"     % akkaVersion,
-      "com.typesafe.akka"  %% "akka-persistence-query"     % akkaVersion,
-      "com.typesafe.akka"  %% "akka-persistence-cassandra" % akkaPersistenceCassandraVersion,
-      "org.scalatest"      %% "scalatest"                  % scalaTestVersion % Test
+      "com.github.pureconfig" %% "pureconfig-core"            % "0.17.8",
+      "com.typesafe.akka"     %% "akka-testkit"               % akkaVersion,
+      "com.typesafe.akka"     %% "akka-cluster-tools"         % akkaVersion,
+      "com.typesafe.akka"     %% "akka-persistence"           % akkaVersion,
+      "com.typesafe.akka"     %% "akka-persistence-typed"     % akkaVersion,
+      "com.typesafe.akka"     %% "akka-persistence-query"     % akkaVersion,
+      "com.typesafe.akka"     %% "akka-persistence-cassandra" % akkaPersistenceCassandraVersion,
+      "org.typelevel"         %% "cats-effect"                % catsEffectVersion,
+      "org.typelevel"         %% "log4cats-slf4j"             % log4catsVersion,
+      "ch.qos.logback"         % "logback-classic"            % "1.5.18",
+      "org.scalatest"         %% "scalatest"                  % scalaTestVersion % Test
     )
   )
 
 lazy val cats_impl = (project in file("cats_impl"))
-  .dependsOn(core)
+  .dependsOn(core, kafka)
   .settings(
     Compile / mainClass := Some("com.scala_training.cats_impl.Application"),
     name                := "cats_impl",
@@ -119,7 +127,6 @@ lazy val cats_impl = (project in file("cats_impl"))
       "org.tpolecat"          %% "doobie-core"                   % doobieVersion,
       "org.tpolecat"          %% "doobie-hikari"                 % doobieVersion,
       "org.tpolecat"          %% "doobie-postgres"               % doobieVersion,
-//      "org.postgresql"         % "postgresql"                    % "42.7.5", // postgres driver
       "com.github.pureconfig" %% "pureconfig-core"               % "0.17.8",
       "com.github.pureconfig" %% "pureconfig-cats-effect"        % "0.17.8",
       "org.flywaydb"           % "flyway-core"                   % "11.7.2",
@@ -131,3 +138,34 @@ lazy val cats_impl = (project in file("cats_impl"))
       "org.typelevel"         %% "cats-effect-testing-scalatest" % "1.6.0"          % Test
     )
   )
+
+lazy val kafka = project
+  .in(file("kafka"))
+  .settings(
+    libraryDependencies ++= Seq(
+      "com.github.fd4s" %% "fs2-kafka"            % fs2KafkaVer,
+      "co.fs2"          %% "fs2-reactive-streams" % fs2InteropVer,
+      "org.typelevel"   %% "cats-effect"          % catsEffectVersion,
+      "io.circe"        %% "circe-core"           % circeVersion,
+      "io.circe"        %% "circe-generic"        % circeVersion,
+      "io.circe"        %% "circe-parser"         % circeVersion,
+      "org.typelevel"   %% "log4cats-slf4j"       % log4catsVersion
+    )
+  )
+  .dependsOn(core)
+
+lazy val elasticsearchIndexer = project
+  .in(file("elasticsearch_indexer"))
+  .settings(
+    Compile / mainClass := Some("com.scala_training.elasticsearch_indexer.Application"),
+    name                := "elasticsearch_indexer",
+    libraryDependencies ++= Seq(
+      "nl.gn0s1s"       %% "elastic4s-client-esjava" % elastic4sVersion,
+      "org.apache.kafka" % "kafka-clients"           % "3.6.1",
+      "org.typelevel"   %% "cats-effect"             % catsEffectVersion,
+      "io.circe"        %% "circe-core"              % circeVersion,
+      "io.circe"        %% "circe-generic"           % circeVersion,
+      "org.typelevel"   %% "log4cats-slf4j"          % log4catsVersion
+    )
+  )
+  .dependsOn(core, kafka)

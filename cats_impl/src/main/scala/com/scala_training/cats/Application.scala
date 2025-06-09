@@ -7,27 +7,21 @@ import com.scala_training.cats.config.Loader
 import com.scala_training.cats.http.routes.{Routes, StreamingRoutes}
 import com.scala_training.cats.persistence.db.FlywayMigrator
 import com.scala_training.cats.persistence.repository.{CarRepository, MaintenanceRepository}
+import com.scala_training.kafka.client.KafkaClient
 import doobie.hikari.HikariTransactor
-import org.http4s.HttpRoutes
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.middleware.CORS
 import org.http4s.implicits.*
 import org.typelevel.log4cats.Logger
-import org.typelevel.log4cats.slf4j.Slf4jLogger
 import org.typelevel.log4cats.LoggerFactory
 
+import scala.concurrent.duration.*
 import java.util.concurrent.Executors
 import scala.concurrent.{ExecutionContext, ExecutionContextExecutor}
 import org.typelevel.log4cats.slf4j.Slf4jFactory
 
 object Application extends IOApp {
-  private val httpPoolSize = 32
-  private val parallelism  = 5
-
-  // Dedicated EC for HTTP operations
-  private val httpEC: ExecutionContextExecutor = ExecutionContext.fromExecutor(
-    Executors.newFixedThreadPool(httpPoolSize)
-  )
+  private val parallelism = 5
 
   // Dedicated EC for blocking operations (DB)
   private val blockingEC = ExecutionContext.fromExecutor(
@@ -41,16 +35,23 @@ object Application extends IOApp {
     using lf: LoggerFactory[F]
   ) = for {
     config                                   <- Resource.eval(Loader.load[F])
-    _                                        <- Resource.eval(FlywayMigrator.execute[F](config.database))
+    databaseConfig                            = config.database.getOrElse(
+                                                  throw new IllegalArgumentException("Database configuration is missing")
+                                                )
+    _                                        <- Resource.eval(FlywayMigrator.execute[F](databaseConfig))
     xa                                       <- HikariTransactor.newHikariTransactor[F](
-                                                  config.database.driver,
-                                                  config.database.url,
-                                                  config.database.user,
-                                                  config.database.password,
+                                                  databaseConfig.driver,
+                                                  databaseConfig.url,
+                                                  databaseConfig.user,
+                                                  databaseConfig.password,
                                                   blockingEC // keep this for DB operations
                                                 )
-    carRepo: CarRepository[F]                 = new CarRepository[F](xa)
-    maintenanceRepo: MaintenanceRepository[F] = new MaintenanceRepository[F](xa)
+    kafkaClient                               = new KafkaClient[F](
+                                                  bootstrap = config.kafka.bootstrapServers
+                                                )
+    carRepo: CarRepository[F]                 = new CarRepository[F](xa, kafkaClient, config.kafka.carEventsTopic)
+    maintenanceRepo: MaintenanceRepository[F] =
+      new MaintenanceRepository[F](xa, kafkaClient, config.kafka.maintenanceEventsTopic)
     carRoutes                                 = Routes.carRoutes[F](carRepo)
     maintenanceRoutes                         = Routes.maintenanceRoutes[F](maintenanceRepo)
     streamingRoutes                           = StreamingRoutes[F](carRepo)
@@ -60,7 +61,7 @@ object Application extends IOApp {
                                                   .default[F]
                                                   .withHost(Host.fromString(config.server.host).getOrElse(Host.fromString("localhost").get))
                                                   .withPort(Port.fromInt(config.server.port).getOrElse(Port.fromInt(8080).get))
-                                                  .withIdleTimeout(config.server.timeout)
+                                                  .withIdleTimeout(config.server.timeout.getOrElse(10.seconds))
                                                   .withHttpApp(httpApp)
                                                   .build
   } yield server

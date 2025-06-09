@@ -4,6 +4,8 @@ import cats.implicits.catsSyntaxTuple6Semigroupal
 import com.scala_training.core.domain.model.CarCore
 import doobie.util.{Read, Write}
 import doobie.postgres.implicits.*
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder}
 
 import java.util.UUID
 import java.time.{LocalDateTime, Year}
@@ -40,4 +42,8 @@ object Car {
   ).tupled.contramap { car =>
     (car.id, car.make, car.model, car.year, car.createdAt, car.updatedAt)
   }
+
+  given Encoder[Car] = deriveEncoder
+
+  given Decoder[Car] = deriveDecoder
 }

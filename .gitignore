@@ -82,3 +82,7 @@ project/plugins/project/
 .lib/
 
 ### Scala ###
+
+.env
+
+data/

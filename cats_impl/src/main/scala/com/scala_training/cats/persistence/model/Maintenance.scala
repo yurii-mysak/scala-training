@@ -3,8 +3,12 @@ package com.scala_training.cats.persistence.model
 import cats.implicits.catsSyntaxTuple8Semigroupal
 import com.scala_training.core.domain.model.MaintenanceCore
 import com.scala_training.core.domain.adt.{MaintenanceStatus, MaintenanceType}
+import com.scala_training.core.domain.adt.MaintenanceType.given
+import com.scala_training.core.domain.adt.MaintenanceStatus.given
 import doobie.util.{Read, Write}
 import doobie.postgres.implicits.*
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
+import io.circe.{Decoder, Encoder}
 
 import java.util.UUID
 import java.time.LocalDateTime
@@ -68,4 +72,8 @@ object Maintenance {
       maintenance.updatedAt
     )
   }
+
+  given Encoder[Maintenance] = deriveEncoder
+
+  given Decoder[Maintenance] = deriveDecoder
 }
