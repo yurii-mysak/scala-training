@@ -7,7 +7,7 @@ import com.scala_training.cats.config.Loader
 import com.scala_training.cats.http.routes.{Routes, StreamingRoutes}
 import com.scala_training.cats.persistence.db.FlywayMigrator
 import com.scala_training.cats.persistence.repository.{CarRepository, MaintenanceRepository}
-import com.scala_training.kafka.client.KafkaClient
+import com.scala_training.kafka.client.KafkaCatsClient
 import doobie.hikari.HikariTransactor
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.middleware.CORS
@@ -46,7 +46,7 @@ object Application extends IOApp {
                                                   databaseConfig.password,
                                                   blockingEC // keep this for DB operations
                                                 )
-    kafkaClient                               = new KafkaClient[F](
+    kafkaClient                               = new KafkaCatsClient[F](
                                                   bootstrap = config.kafka.bootstrapServers
                                                 )
     carRepo: CarRepository[F]                 = new CarRepository[F](xa, kafkaClient, config.kafka.carEventsTopic)

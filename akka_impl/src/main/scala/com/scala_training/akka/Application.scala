@@ -5,67 +5,63 @@ import akka.actor.typed.{ActorSystem, DispatcherSelector}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives.*
 import akka.util.Timeout
-import cats.effect.{IO, IOApp, Resource}
 import com.scala_training.akka.config.Loader
-import com.scala_training.kafka.client.KafkaClient
+import com.scala_training.kafka.client.KafkaAkkaClient
 import http.controller.{Car, Maintenance}
-import org.slf4j.LoggerFactory
-import org.typelevel.log4cats.slf4j.Slf4jFactory
+import org.slf4j.{Logger, LoggerFactory}
 import persistence.model.car.CarManager
 import persistence.model.maintenance.MaintenanceManager
 import persistence.repository.{CarRepository, MaintenanceRepository}
 
 import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContextExecutor
-import scala.util.Try
+import scala.concurrent.{ExecutionContextExecutor, Future}
+import scala.util.{Failure, Success}
 
-object Application extends IOApp.Simple {
+object Application {
 
-  override def run: IO[Unit] = {
-    val program = for {
-      system <- IO(ActorSystem(Behaviors.empty, "CarMine")).toResource
+  def main(args: Array[String]): Unit = {
+    // Create Actor system
+    given system: ActorSystem[?]       = ActorSystem(Behaviors.empty, "CarMine")
+    given ec: ExecutionContextExecutor =
+      system.dispatchers.lookup(DispatcherSelector.fromConfig("akka.dispatchers.http-dispatcher"))
+    given timeout: Timeout             = 3.seconds
 
-      given ActorSystem[?]                           = system
-      given ExecutionContextExecutor                 =
-        system.dispatchers.lookup(DispatcherSelector.fromConfig("akka.dispatchers.http-dispatcher"))
-      given Timeout                                  = Timeout(3.seconds)
-      given org.slf4j.Logger                         = LoggerFactory.getLogger(getClass)
-      given org.typelevel.log4cats.LoggerFactory[IO] = Slf4jFactory.create[IO]
+    given logger: Logger = LoggerFactory.getLogger("com.scala_training.akka")
+    val appConfig        = Loader.load()
+    val kafkaAkkaClient  = new KafkaAkkaClient(appConfig.kafka.bootstrapServers)
 
-      config                = Loader.load()
-      kafkaClient           = new KafkaClient[IO](
-                                bootstrap = config.kafka.bootstrapServers
-                              )
-      carManager            = system.systemActorOf(CarManager(kafkaClient, config.kafka.carEventsTopic), "car-manager")
-      maintenanceManager    = system.systemActorOf(MaintenanceManager(), "maintenance-manager")
-      carRepository         = new CarRepository(carManager)
-      maintenanceRepository = new MaintenanceRepository(maintenanceManager)
+    // Add shutdown hook
+    system.whenTerminated.onComplete { _ =>
+      kafkaAkkaClient.close()
+    }
 
-      routes = concat(
-                 pathPrefix("api") {
-                   concat(
-                     Car.routes(carRepository),
-                     Maintenance.routes(maintenanceRepository)
-                   )
-                 }
-               )
+    val carManager            = system.systemActorOf(CarManager(kafkaAkkaClient, appConfig.kafka.carEventsTopic), "car-manager")
+    val maintenanceManager    = system.systemActorOf(MaintenanceManager(), "maintenance-manager")
+    val carRepository         = new CarRepository(carManager)
+    val maintenanceRepository = new MaintenanceRepository(maintenanceManager)
 
-      binding <- Resource.make(
-                   IO.fromFuture(
-                     IO(
-                       Http().newServerAt(config.server.host, config.server.port).bind(routes)
-                     )
-                   )
-                 )(binding => IO.fromFuture(IO(binding.terminate(10.seconds))).void)
+    // Combine routes
+    val routes = concat(
+      pathPrefix("api") {
+        concat(
+          Car.routes(carRepository),
+          Maintenance.routes(maintenanceRepository)
+        )
+      }
+    )
 
-      _ <- Resource.eval(
-             IO.delay {
-               val address = binding.localAddress
-               summon[org.slf4j.Logger].info(s"Server online at http://${address.getHostString}:${address.getPort}/")
-             }
-           )
-    } yield ()
+    // Start the server
+    val serverBinding: Future[Http.ServerBinding] =
+      Http().newServerAt(appConfig.server.host, appConfig.server.port).bind(routes)
 
-    program.use(_ => IO.never)
+    // Handle server binding result
+    serverBinding.onComplete {
+      case Success(binding) =>
+        val address = binding.localAddress
+        logger.info(s"Server online at http://${address.getHostString}:${address.getPort}/")
+      case Failure(ex)      =>
+        logger.error(s"Failed to bind HTTP server: ${ex.getMessage}")
+        system.terminate()
+    }
   }
 }

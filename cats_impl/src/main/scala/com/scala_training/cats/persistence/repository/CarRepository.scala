@@ -5,7 +5,7 @@ import cats.implicits.*
 import com.scala_training.cats.persistence.model.Car
 import doobie.Meta
 import com.scala_training.core.persistence.command.CommandResponse
-import com.scala_training.kafka.client.KafkaClient
+import com.scala_training.kafka.client.KafkaCatsClient
 import com.scala_training.kafka.model.CarEvent
 import com.scala_training.kafka.model.CarEvent.given
 import doobie.util.transactor.Transactor
@@ -22,7 +22,7 @@ trait CarRepositoryAPI[F[_]] {
   def getAll: F[CommandResponse[Map[UUID, Car]]]
 }
 
-class CarRepository[F[_]: {Concurrent, LoggerFactory}](xa: Transactor[F], kafkaClient: KafkaClient[F], topic: String)
+class CarRepository[F[_]: {Concurrent, LoggerFactory}](xa: Transactor[F], kafkaClient: KafkaCatsClient[F], topic: String)
   extends CarRepositoryAPI[F] {
   given yearMeta: Meta[Year] = Meta[Int].imap(Year.of)(_.getValue)
   given logger: Logger[F]    = LoggerFactory[F].getLogger

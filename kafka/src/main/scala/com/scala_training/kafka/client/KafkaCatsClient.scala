@@ -11,7 +11,7 @@ import org.typelevel.log4cats.{Logger, LoggerFactory}
 
 import java.util.UUID
 
-class KafkaClient[F[_]: {Async, LoggerFactory}](
+class KafkaCatsClient[F[_]: {Async, LoggerFactory}](
   bootstrap: String,
   retries: Int = 3
 ):

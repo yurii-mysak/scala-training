@@ -6,13 +6,12 @@ import akka.actor.typed.{ActorRef, Behavior}
 import akka.persistence.typed.PersistenceId
 import akka.persistence.typed.scaladsl.{Effect, EventSourcedBehavior}
 import akka.util.Timeout
-import cats.effect.IO
 import com.scala_training.akka.persistence.command.car.Command
 import com.scala_training.akka.persistence.event.car.Event
 import com.scala_training.akka.persistence.event.car.Event.*
 import com.scala_training.akka.persistence.model.State
 import com.scala_training.core.persistence.command.CommandResponse
-import com.scala_training.kafka.client.KafkaClient
+import com.scala_training.kafka.client.KafkaAkkaClient
 import com.scala_training.kafka.model.CarEvent
 
 import java.util.UUID
@@ -20,7 +19,8 @@ import java.util.UUID
 object CarManager {
   private case class ManagerState(actors: Map[UUID, ActorRef[Command]])
 
-  def apply(kafkaClient: KafkaClient[IO], topic: String): Behavior[Command] = Behaviors.setup { context =>
+  def apply(kafkaClient: KafkaAkkaClient, topic: String): Behavior[Command] = Behaviors.setup { context =>
+    context.setLoggerName("com.scala_training.akka.persistence.model.car.CarManager")
     EventSourcedBehavior[Command, Event, State[ManagerState]](
       persistenceId = PersistenceId.ofUniqueId("car-manager"),
       emptyState = State(Some(ManagerState(Map.empty))),
@@ -31,7 +31,7 @@ object CarManager {
 
   private def handleCommand(
     context: ActorContext[Command],
-    kafkaClient: KafkaClient[IO],
+    kafkaClient: KafkaAkkaClient,
     topic: String
   )(state: State[ManagerState], command: Command): Effect[Event, State[ManagerState]] = command match {
     case Command.Get(id: UUID, replyTo: ActorRef[CommandResponse[Car]]) =>
@@ -84,7 +84,7 @@ object CarManager {
         .thenRun { _ =>
           replyTo ! CommandResponse.Success(Some(car))
 
-          kafkaClient.produce(topic, CarEvent.CarCreated(car)).compile.drain
+          kafkaClient.produce(topic, CarEvent.CarCreated(car))
         }
   }
 

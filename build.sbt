@@ -3,7 +3,7 @@ ThisBuild / scalaVersion      := "3.6.4"
 ThisBuild / scalafmtOnCompile := true
 
 // Common versions
-lazy val akkaVersion                     = "2.10.0"
+lazy val akkaVersion                     = "2.10.5"
 lazy val akkaHttpVersion                 = "10.7.0"
 lazy val scalaTestVersion                = "3.2.19"
 lazy val slf4jVersion                    = "2.0.17"
@@ -74,8 +74,8 @@ lazy val akka_impl = (project in file("akka_impl"))
     Compile / mainClass := Some("com.scala_training.akka_impl.Application"),
     resolvers += "Akka library repository".at("https://repo.akka.io/maven"),
     libraryDependencies ++= Seq(
-      "org.typelevel"         %% "cats-effect"                % catsEffectVersion,
       "com.typesafe.akka"     %% "akka-stream"                % akkaVersion,
+      "com.typesafe.akka"     %% "akka-stream-kafka"          % "7.0.3",
       "com.typesafe.akka"     %% "akka-http"                  % akkaHttpVersion,
       "com.typesafe.akka"     %% "akka-http-testkit"          % akkaHttpVersion,
       ("de.heikoseeberger"    %% "akka-http-circe"            % akkaHttpCirceVersion)
@@ -103,8 +103,6 @@ lazy val akka_impl = (project in file("akka_impl"))
       "com.typesafe.akka"     %% "akka-persistence-typed"     % akkaVersion,
       "com.typesafe.akka"     %% "akka-persistence-query"     % akkaVersion,
       "com.typesafe.akka"     %% "akka-persistence-cassandra" % akkaPersistenceCassandraVersion,
-      "org.typelevel"         %% "cats-effect"                % catsEffectVersion,
-      "org.typelevel"         %% "log4cats-slf4j"             % log4catsVersion,
       "ch.qos.logback"         % "logback-classic"            % "1.5.18",
       "org.scalatest"         %% "scalatest"                  % scalaTestVersion % Test
     )
@@ -143,13 +141,15 @@ lazy val kafka = project
   .in(file("kafka"))
   .settings(
     libraryDependencies ++= Seq(
-      "com.github.fd4s" %% "fs2-kafka"            % fs2KafkaVer,
-      "co.fs2"          %% "fs2-reactive-streams" % fs2InteropVer,
-      "org.typelevel"   %% "cats-effect"          % catsEffectVersion,
-      "io.circe"        %% "circe-core"           % circeVersion,
-      "io.circe"        %% "circe-generic"        % circeVersion,
-      "io.circe"        %% "circe-parser"         % circeVersion,
-      "org.typelevel"   %% "log4cats-slf4j"       % log4catsVersion
+      "com.github.fd4s"   %% "fs2-kafka"            % fs2KafkaVer,
+      "co.fs2"            %% "fs2-reactive-streams" % fs2InteropVer,
+      "org.typelevel"     %% "cats-effect"          % catsEffectVersion,
+      "io.circe"          %% "circe-core"           % circeVersion,
+      "io.circe"          %% "circe-generic"        % circeVersion,
+      "io.circe"          %% "circe-parser"         % circeVersion,
+      "org.typelevel"     %% "log4cats-slf4j"       % log4catsVersion,
+      "com.typesafe.akka" %% "akka-actor-typed"     % akkaVersion,
+      "com.typesafe.akka" %% "akka-stream-kafka"    % "7.0.3"
     )
   )
   .dependsOn(core)

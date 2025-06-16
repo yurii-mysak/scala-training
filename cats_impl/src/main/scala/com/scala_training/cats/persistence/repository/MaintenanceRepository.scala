@@ -9,7 +9,7 @@ import doobie.util.transactor.Transactor
 import doobie.implicits.*
 import com.scala_training.core.domain.adt.MaintenanceStatus.*
 import com.scala_training.core.domain.adt.MaintenanceStatus.given
-import com.scala_training.kafka.client.KafkaClient
+import com.scala_training.kafka.client.KafkaCatsClient
 import com.scala_training.kafka.model.MaintenanceEvent
 import com.scala_training.kafka.model.MaintenanceEvent.given
 import doobie.postgres.implicits.*
@@ -26,9 +26,9 @@ trait MaintenanceRepositoryAPI[F[_]] {
 }
 
 class MaintenanceRepository[F[_]: {Concurrent, LoggerFactory}](
-  xa: Transactor[F],
-  kafkaClient: KafkaClient[F],
-  topic: String
+                                                                xa: Transactor[F],
+                                                                kafkaClient: KafkaCatsClient[F],
+                                                                topic: String
 ) extends MaintenanceRepositoryAPI[F] {
   given logger: Logger[F] = LoggerFactory[F].getLogger
 
