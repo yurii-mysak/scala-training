@@ -9,6 +9,8 @@ import java.util.UUID
 sealed trait Command
 
 object Command {
+  case object NoOp extends Command
+
   case class Create(car: Car, replyTo: ActorRef[CommandResponse[Car]]) extends Command
 
   case class Get(id: UUID, replyTo: ActorRef[CommandResponse[Car]]) extends Command

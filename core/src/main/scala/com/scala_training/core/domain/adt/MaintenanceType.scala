@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.{DeserializationContext, SerializerProvide
 import com.fasterxml.jackson.databind.annotation.{JsonDeserialize, JsonSerialize}
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import com.fasterxml.jackson.databind.ser.std.StdSerializer
+import io.circe.{Decoder, Encoder}
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 
 import java.util.UUID
 
@@ -86,6 +88,10 @@ object MaintenanceType {
     .getOrElse(
       throw new IllegalArgumentException(s"Invalid maintenance type: $str")
     )
+
+  given Encoder[MaintenanceType] = deriveEncoder
+
+  given Decoder[MaintenanceType] = deriveDecoder
 }
 
 class MaintenanceTypeJsonSerializer extends StdSerializer[MaintenanceType](classOf[MaintenanceType]) {

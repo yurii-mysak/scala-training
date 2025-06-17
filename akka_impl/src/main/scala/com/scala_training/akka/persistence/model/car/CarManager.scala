@@ -11,23 +11,28 @@ import com.scala_training.akka.persistence.event.car.Event
 import com.scala_training.akka.persistence.event.car.Event.*
 import com.scala_training.akka.persistence.model.State
 import com.scala_training.core.persistence.command.CommandResponse
+import com.scala_training.kafka.client.KafkaAkkaClient
+import com.scala_training.kafka.model.CarEvent
 
 import java.util.UUID
 
 object CarManager {
   private case class ManagerState(actors: Map[UUID, ActorRef[Command]])
 
-  def apply(): Behavior[Command] = Behaviors.setup { context =>
+  def apply(kafkaClient: KafkaAkkaClient, topic: String): Behavior[Command] = Behaviors.setup { context =>
+    context.setLoggerName("com.scala_training.akka.persistence.model.car.CarManager")
     EventSourcedBehavior[Command, Event, State[ManagerState]](
       persistenceId = PersistenceId.ofUniqueId("car-manager"),
       emptyState = State(Some(ManagerState(Map.empty))),
-      commandHandler = handleCommand(context),
+      commandHandler = handleCommand(context, kafkaClient, topic),
       eventHandler = handleEvent(context)
     )
   }
 
   private def handleCommand(
-    context: ActorContext[Command]
+    context: ActorContext[Command],
+    kafkaClient: KafkaAkkaClient,
+    topic: String
   )(state: State[ManagerState], command: Command): Effect[Event, State[ManagerState]] = command match {
     case Command.Get(id: UUID, replyTo: ActorRef[CommandResponse[Car]]) =>
       val carActors = state.state.getOrElse(ManagerState(Map.empty)).actors
@@ -71,12 +76,16 @@ object CarManager {
           }
         }
 
-    case createCar @ Command.Create(car, _) =>
+    case createCar @ Command.Create(car, replyTo) =>
       val ref = context.spawn(Car(car.id), s"car-${car.id}")
 
       Effect
         .persist(Created(car))
-        .thenReply(ref)(_ => createCar)
+        .thenRun { _ =>
+          replyTo ! CommandResponse.Success(Some(car))
+
+          kafkaClient.produce(topic, CarEvent.CarCreated(car))
+        }
   }
 
   private def handleEvent(

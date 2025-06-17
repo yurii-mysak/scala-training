@@ -2,7 +2,7 @@ package com.scala_training.cats.persistence.db
 
 import cats.effect.Sync
 import cats.implicits.toFunctorOps
-import com.scala_training.cats.config.DatabaseConfig
+import com.scala_training.core.config.DatabaseConfig
 import org.flywaydb.core.Flyway
 
 import javax.sql.DataSource
